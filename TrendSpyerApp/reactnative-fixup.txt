@@ -1,74 +1,231 @@
-INFO: Script is current version (1.5.1) [671]
-INFO: (Skipping show_newest_script_version) [1406]
-INFO: Found npm. [690]
-INFO: JAVA_HOME is set to C:\Program Files\Java\jdk-20 [705]
-INFO: JAVA_HOME points to an existing directory. [709]
-INFO: java is in your path. [719]
-INFO: Detected version "20.0.2" of Java. [742]
-INFO: Java version is correct. [746]
-INFO: java executable location matches up with JAVA_HOME. [763]
-INFO: Environment var(s) point to an Android SDK location C:\Users\ricky\AppData\Local\Android\Sdk. [780]
-INFO: Android SDK appears to exist. [784]
-INFO: SDK and JDK paths appear to be good. [822]
-INFO: (homebrew is not required on Windows) [829]
-INFO: Project is git-controlled. [851]
-INFO: We are in an NPM project. [861]
-INFO: We are really in a React-native project. [885]
-INFO: Confirmed: this is a CLI project. [896]
-INFO: Confirmed: this is not an expo rebuild/exported project. [907]
-INFO: (Cocoapods is not required on Windows.) [915]
-INFO: (xcode-select is not required on Windows.) [930]
-INFO: (Watchman is not required on Windows.) [948]
-INFO: (ios-deploy is not required on Windows.) [963]
-INFO: Found adb. [978]
-INFO: keytool is in path. [989]
-INFO: Found emulator. [1000]
-INFO: bundletool destination folder of C:\Program Files\ exists. [1014]
-INFO: Found current version of bundletool. [1017]
-INFO: Checking [newest published] npm package versions... [1033]
-WARN: Expecting version ^0.3.0 of @react-native-masked-view/masked-view but found ^0.3.1 [1041]
-WARN: Expecting version 0.72.7 of react-native but found 0.73.1 [1041]
-WARN: Expecting version ^4.7.4 of react-native-safe-area-context but found ^4.8.2 [1041]
-WARN: Expecting version ^3.27.0 of react-native-screens but found ^3.29.0 [1041]
-INFO: (Tell BJM or write an issue against this script on GitHub) [1048]
-INFO: ...Done checking npm package versions. [1050]
-INFO: Command-line tools are in path. [1056]
-INFO: Correct NDK is installed. [1064]
-INFO: Android SDK build-tools version 30.0.3 exists. [1076]
-INFO: Android SDK build-tools version 33.0.0 exists. [1076]
-INFO: Android SDK build-tools version 34.0.0 exists. [1076]
-INFO: (All build-tools versions exist) [1084]
-INFO: (JAVA_VERSION is not needed for Windows) [1094]
-WARN: build.gradle has unexpected kotlinVersion = "1.8.0" [1125]
-INFO: build.gradle file updated successfully with kotlinVersion 1.7.10. [1133]
-INFO: app/build.gradle file updated successfully with signingConfigs. [1174]
-INFO: gradle.properties file updated successfully with keys. [1192]
-INFO: gradle.properties file updated successfully with release section. [1212]
-INFO: Gradle wrapper distributionUrl updated successfully. [1228]
-INFO: org.gradle.java.home added or updated in gradle.properties. [1252]
-INFO: android\universal.json file created with contents. [1265]
-WARN: App.tsx has been modified. Is this intentional? [1272]
-INFO: App.tsx not overwritten. [1274]
-INFO: Adding @react-native-masked-view/masked-view ^0.3.0 [1305]
-INFO: Adding @react-navigation/drawer ^6.6.6 [1305]
-INFO: Adding @react-navigation/native ^6.1.9 [1305]
-INFO: Adding @react-navigation/native-stack ^6.9.17 [1305]
-INFO: Adding @react-navigation/stack ^6.3.20 [1305]
-INFO: Adding react-native-asset ^2.1.1 [1305]
-INFO: react (18.2.0) is present and up to date [1317]
-WARN: Updating react-native from 0.73.1 to 0.72.7 [1311]
-INFO: Adding react-native-gesture-handler ^2.14.0 [1305]
-INFO: Adding react-native-reanimated ^3.6.1 [1305]
-INFO: Adding react-native-safe-area-context ^4.7.4 [1305]
-INFO: Adding react-native-screens ^3.27.0 [1305]
-INFO: Backing up package.json to package.json.bak [1328]
-INFO: package.json file adjusted successfully. [1343]
+
+
+*** Run beginning 2024-03-01T12:30:38.120486 ***
+
+INFO: 
+*******
+This script MAY help you. You *should* have run "npx react-native doctor"
+and fixed the issues first. This may help you with issues there if you can't figure out why doctor is failing.
+
+BUT DO NOT try to run-android without BOTH "doctor" and this script reporting success.
+
+Note that "WARN:" does not mean "Error", it means "be sure this is correct."
+
+All output from this script will be logged to reactnative-fixup.txt
+***********
+
+
+INFO: Script is current version (1.5.3) [676]
+INFO: (Skipping show_newest_script_version) [1424]
+INFO: Found npm. [695]
+INFO: JAVA_HOME is set to /Library/Java/JavaVirtualMachines/jdk-20.0.2.jdk/Contents/Home [710]
+INFO: JAVA_HOME points to an existing directory. [714]
+INFO: java is in your path. [724]
+INFO: Detected version "20.0.2" of Java. [747]
+INFO: Java version is correct. [751]
+INFO: java executable location matches up with JAVA_HOME. [768]
+INFO: Environment var(s) point to an Android SDK location /Users/alejandroramos/Library/Android/sdk. [785]
+INFO: Android SDK appears to exist. [789]
+INFO: SDK and JDK paths appear to be good. [827]
+INFO: brew exists. [838]
+INFO: Project is git-controlled. [856]
+INFO: We are in an NPM project. [866]
+INFO: We are really in a React-native project. [890]
+INFO: Confirmed: this is a CLI project. [901]
+INFO: Confirmed: this is not an expo rebuild/exported project. [912]
+INFO: Found cocoapods. [924]
+INFO: Xcode has been selected. [942]
+INFO: Found watchman. [957]
+INFO: Found ios-deploy. [972]
+INFO: Found adb. [983]
+INFO: keytool is in path. [994]
+INFO: Found emulator. [1005]
+INFO: bundletool destination folder of /Users/alejandroramos/Library/ exists. [1019]
+INFO: Found current version of bundletool. [1022]
+INFO: Checking [newest published] npm package versions... [1038]
+WARN: Expecting version ^0.3.0 of @react-native-masked-view/masked-view but found ^0.3.1 [1046]
+WARN: Expecting version ^6.6.6 of @react-navigation/drawer but found ^6.6.11 [1046]
+WARN: Expecting version ^6.1.9 of @react-navigation/native but found ^6.1.14 [1046]
+WARN: Expecting version ^6.9.17 of @react-navigation/native-stack but found ^6.9.22 [1046]
+WARN: Expecting version ^6.3.20 of @react-navigation/stack but found ^6.3.25 [1046]
+WARN: Expecting version 0.72.7 of react-native but found 0.73.5 [1046]
+WARN: Expecting version ^2.14.0 of react-native-gesture-handler but found ^2.15.0 [1046]
+WARN: Expecting version ^3.6.1 of react-native-reanimated but found ^3.7.2 [1046]
+WARN: Expecting version ^4.7.4 of react-native-safe-area-context but found ^4.9.0 [1046]
+WARN: Expecting version ^3.27.0 of react-native-screens but found ^3.29.0 [1046]
+INFO: (Tell BJM or write an issue against this script on GitHub) [1053]
+INFO: ...Done checking npm package versions. [1055]
+INFO: Command-line tools are installed. [1061]
+INFO: Command-line tools are in path. [1069]
+INFO: Correct NDK is installed. [1082]
+INFO: Android SDK build-tools version 30.0.3 exists. [1094]
+INFO: Android SDK build-tools version 33.0.0 exists. [1094]
+INFO: Android SDK build-tools version 34.0.0 exists. [1094]
+INFO: (All build-tools versions exist) [1102]
+INFO: JAVA_VERSION is set correctly. [1116]
+WARN: build.gradle has unexpected kotlinVersion = "1.8.0" [1143]
+INFO: build.gradle file updated successfully with kotlinVersion 1.7.10. [1151]
+INFO: app/build.gradle file updated successfully with signingConfigs. [1192]
+INFO: gradle.properties file updated successfully with keys. [1210]
+INFO: gradle.properties file updated successfully with release section. [1230]
+INFO: Gradle wrapper distributionUrl updated successfully. [1246]
+INFO: org.gradle.java.home added or updated in gradle.properties. [1270]
+INFO: android/universal.json file created with contents. [1283]
+INFO: App.tsx removed (it was the default version). [1296]
+INFO: App.js created. [1307]
+INFO: Adding @react-native-masked-view/masked-view ^0.3.0 [1323]
+INFO: Adding @react-navigation/drawer ^6.6.6 [1323]
+INFO: Adding @react-navigation/native ^6.1.9 [1323]
+INFO: Adding @react-navigation/native-stack ^6.9.17 [1323]
+INFO: Adding @react-navigation/stack ^6.3.20 [1323]
+INFO: Adding react-native-asset ^2.1.1 [1323]
+INFO: react (18.2.0) is present and up to date [1335]
+WARN: Updating react-native from 0.73.5 to 0.72.7 [1329]
+INFO: Adding react-native-gesture-handler ^2.14.0 [1323]
+INFO: Adding react-native-reanimated ^3.6.1 [1323]
+INFO: Adding react-native-safe-area-context ^4.7.4 [1323]
+INFO: Adding react-native-screens ^3.27.0 [1323]
+INFO: Backing up package.json to package.json.bak [1346]
+INFO: package.json file adjusted successfully. [1361]
 vvvvvv HOW TO FIX vvvvvv
 $ npm install
 ^^^^^^ HOW TO FIX ^^^^^
-INFO: assets/fonts dir created [1354]
-INFO: assets/audio dir created [1362]
-INFO: react-native.config.js created. [1373]
-INFO: Keystore generated successfully. [1384]
-INFO: Found existing .prettierrc or .prettierrc.js, so not modifying it. [1391]
-*** (1.5.1) Message type counts: 0 fatal, 7 warn, 0 error, 63 info, 1 fixes
+INFO: assets/fonts dir created [1372]
+INFO: assets/audio dir created [1380]
+INFO: react-native.config.js created. [1391]
+INFO: Keystore generated successfully. [1402]
+INFO: Found existing .prettierrc or .prettierrc.js, so not modifying it. [1409]
+INFO: Be sure to:
+
+
+$ npm install
+$ npx react-native-asset
+
+*FOR IOS Before* your first build (or after you install a new NPM package) you must:
+
+$ sudo gem update cocoapods --pre
+$ npx pod-install
+$ cd ios && pod update && cd ..
+
+$ npx react-native run-android *(or)* run-ios
+
+[to build an APK]
+
+$ npx react-native-asset
+
+$ cd android && ./gradlew build && ./gradlew bundleRelease
+$ java -jar "/Users/alejandroramos/Library/bundletool-all-1.15.6.jar" build-apks --bundle=app/build/outputs/bundle/release/app-release.aab --output=app/build/outputs/apk/release/app-release.apks --mode=universal --ks=../android/app/my-release-key.jks --ks-pass=pass:12345678 --ks-key-alias=my-key-alias --key-pass=pass:12345678
+
+$ java -jar "/Users/alejandroramos/Library/bundletool-all-1.15.6.jar" extract-apks --apks=app/build/outputs/apk/release/app-release.apks --output-dir=app/build/outputs/apk/release/ --device-spec=../android/universal.json
+
+
+
+*** (1.5.3) Message type counts: 0 fatal, 12 warn, 0 error, 67 info, 1 fixes
+*** Run ending 2024-03-01T12:30:53.178983 ***
+
+
+
+*** Run beginning 2024-03-01T12:31:26.508598 ***
+
+INFO: Script is current version (1.5.3) [676]
+INFO: (Skipping show_newest_script_version) [1424]
+INFO: Found npm. [695]
+INFO: JAVA_HOME is set to /Library/Java/JavaVirtualMachines/jdk-20.0.2.jdk/Contents/Home [710]
+INFO: JAVA_HOME points to an existing directory. [714]
+INFO: java is in your path. [724]
+INFO: Detected version "20.0.2" of Java. [747]
+INFO: Java version is correct. [751]
+INFO: java executable location matches up with JAVA_HOME. [768]
+INFO: Environment var(s) point to an Android SDK location /Users/alejandroramos/Library/Android/sdk. [785]
+INFO: Android SDK appears to exist. [789]
+INFO: SDK and JDK paths appear to be good. [827]
+INFO: brew exists. [838]
+INFO: Project is git-controlled. [856]
+INFO: We are in an NPM project. [866]
+INFO: We are really in a React-native project. [890]
+INFO: Confirmed: this is a CLI project. [901]
+INFO: Confirmed: this is not an expo rebuild/exported project. [912]
+INFO: Found cocoapods. [924]
+INFO: Xcode has been selected. [942]
+INFO: Found watchman. [957]
+INFO: Found ios-deploy. [972]
+INFO: Found adb. [983]
+INFO: keytool is in path. [994]
+INFO: Found emulator. [1005]
+INFO: bundletool destination folder of /Users/alejandroramos/Library/ exists. [1019]
+INFO: Found current version of bundletool. [1022]
+INFO: Checking [newest published] npm package versions... [1038]
+WARN: Expecting version ^0.3.0 of @react-native-masked-view/masked-view but found ^0.3.1 [1046]
+WARN: Expecting version ^6.6.6 of @react-navigation/drawer but found ^6.6.11 [1046]
+WARN: Expecting version ^6.1.9 of @react-navigation/native but found ^6.1.14 [1046]
+WARN: Expecting version ^6.9.17 of @react-navigation/native-stack but found ^6.9.22 [1046]
+WARN: Expecting version ^6.3.20 of @react-navigation/stack but found ^6.3.25 [1046]
+WARN: Expecting version 0.72.7 of react-native but found 0.73.5 [1046]
+WARN: Expecting version ^2.14.0 of react-native-gesture-handler but found ^2.15.0 [1046]
+WARN: Expecting version ^3.6.1 of react-native-reanimated but found ^3.7.2 [1046]
+WARN: Expecting version ^4.7.4 of react-native-safe-area-context but found ^4.9.0 [1046]
+WARN: Expecting version ^3.27.0 of react-native-screens but found ^3.29.0 [1046]
+INFO: (Tell BJM or write an issue against this script on GitHub) [1053]
+INFO: ...Done checking npm package versions. [1055]
+INFO: Command-line tools are installed. [1061]
+INFO: Command-line tools are in path. [1069]
+INFO: Correct NDK is installed. [1082]
+INFO: Android SDK build-tools version 30.0.3 exists. [1094]
+INFO: Android SDK build-tools version 33.0.0 exists. [1094]
+INFO: Android SDK build-tools version 34.0.0 exists. [1094]
+INFO: (All build-tools versions exist) [1102]
+INFO: JAVA_VERSION is set correctly. [1116]
+INFO: build.gradle file updated successfully with kotlinVersion 1.7.10. [1151]
+INFO: app/build.gradle file already contained signingConfigs. [1186]
+INFO: gradle.properties file updated successfully with keys. [1210]
+INFO: gradle.properties file updated successfully with release section. [1230]
+INFO: Gradle wrapper distributionUrl updated successfully. [1246]
+INFO: org.gradle.java.home added or updated in gradle.properties. [1270]
+INFO: android/universal.json file already exists. (not modifying it) [1276]
+INFO: App.js exists and has not been modified. [1300]
+INFO: @react-native-masked-view/masked-view (^0.3.0) is present and up to date [1335]
+INFO: @react-navigation/drawer (^6.6.6) is present and up to date [1335]
+INFO: @react-navigation/native (^6.1.9) is present and up to date [1335]
+INFO: @react-navigation/native-stack (^6.9.17) is present and up to date [1335]
+INFO: @react-navigation/stack (^6.3.20) is present and up to date [1335]
+INFO: react-native-asset (^2.1.1) is present and up to date [1335]
+INFO: react (18.2.0) is present and up to date [1335]
+INFO: react-native (0.72.7) is present and up to date [1335]
+INFO: react-native-gesture-handler (^2.14.0) is present and up to date [1335]
+INFO: react-native-reanimated (^3.6.1) is present and up to date [1335]
+INFO: react-native-safe-area-context (^4.7.4) is present and up to date [1335]
+INFO: react-native-screens (^3.27.0) is present and up to date [1335]
+INFO: No package.json dependencies changed. [1342]
+INFO: assets/fonts dir exists already [1369]
+INFO: assets/audio dir exists already [1376]
+INFO: react-native.config.js exists already; not overwritten [1383]
+INFO: Keystore already exists. (not overwriting it) [1397]
+INFO: Found existing .prettierrc or .prettierrc.js, so not modifying it. [1409]
+INFO: Be sure to:
+
+
+$ npm install
+$ npx react-native-asset
+
+*FOR IOS Before* your first build (or after you install a new NPM package) you must:
+
+$ sudo gem update cocoapods --pre
+$ npx pod-install
+$ cd ios && pod update && cd ..
+
+$ npx react-native run-android *(or)* run-ios
+
+[to build an APK]
+
+$ npx react-native-asset
+
+$ cd android && ./gradlew build && ./gradlew bundleRelease
+$ java -jar "/Users/alejandroramos/Library/bundletool-all-1.15.6.jar" build-apks --bundle=app/build/outputs/bundle/release/app-release.aab --output=app/build/outputs/apk/release/app-release.apks --mode=universal --ks=../android/app/my-release-key.jks --ks-pass=pass:12345678 --ks-key-alias=my-key-alias --key-pass=pass:12345678
+
+$ java -jar "/Users/alejandroramos/Library/bundletool-all-1.15.6.jar" extract-apks --apks=app/build/outputs/apk/release/app-release.apks --output-dir=app/build/outputs/apk/release/ --device-spec=../android/universal.json
+
+
+
+*** (1.5.3) Message type counts: 0 fatal, 10 warn, 0 error, 65 info, 0 fixes
+*** Run ending 2024-03-01T12:31:34.925225 ***
+
