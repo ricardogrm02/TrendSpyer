@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 
-function RegisterPage({ navigation }) {
+function Register({ navigation }) {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -9,6 +9,8 @@ function RegisterPage({ navigation }) {
   const handleRegister = () => {
     // Handle the registration logic here
     console.log('Registering:', { username, email, password });
+
+    navigation.navigate('Data');
   };
 
   return (
@@ -97,4 +99,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default RegisterPage;
+export default Register;
