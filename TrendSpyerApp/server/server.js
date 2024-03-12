@@ -4,10 +4,10 @@ const app = express();
 const port = 3000;
 
 const dbConfig = {
-  user: 'your_username',
-  password: 'your_password',
-  database: 'your_database',
-  server: 'your_server.database.windows.net',
+  user: 'trendspyer',
+  password: 'p@ssword1',
+  database: 'trendspyer',
+  server: 'trendspyer-server.database.windows.net',
   options: {
     encrypt: true, // Azure requires encryption
   },
@@ -16,7 +16,7 @@ const dbConfig = {
 app.get('/data', async (req, res) => {
   try {
     await sql.connect(dbConfig);
-    const result = await sql.query('SELECT * FROM your_table');
+    const result = await sql.query('SELECT * FROM [dbo].[Users]');
     res.json(result.recordset);
   } catch (err) {
     console.error(err);
