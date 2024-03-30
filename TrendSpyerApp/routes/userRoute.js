@@ -79,6 +79,18 @@ router.get("/info", async (req, res) => {
       res.status(500).json({ message: "Internal server error" });
     }
   });
+
+  router.delete('/deactivate', async (req, res) => {
+    try {
+        const user = await User.findOneAndDelete({email: req.body.email});
+        if (!user) {
+            return res.status(404).send(); // Send 404 if no blog was found
+        }
+        res.send(`Successfuly deleted user: ${user}`); // Send deleted blog
+    } catch (error) {
+        res.status(500).send(error); // Send 500 if an error occurs
+    }
+});
   /*    crime: {type: String, required: true},
     tag: {type: String, required: true},
     reportDate: {type: Date, required: true},
