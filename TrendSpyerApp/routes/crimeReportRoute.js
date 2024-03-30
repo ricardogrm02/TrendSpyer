@@ -15,4 +15,16 @@ router.get("/info", async (req, res) => {
     }
   });
 
+  router.delete("/delete", async (req, res) => {
+    try {
+      const report = await CrimeReport.findOneAndDelete({reportID: req.body.reportID});
+      if (!report) {
+          return res.status(404).send(); // Send 404 if no blog was found
+      }
+      res.send(`Successfuly deleted report: ${report}`); // Send deleted blog
+  } catch (error) {
+      res.status(500).send(error); // Send 500 if an error occurs
+  }
+  });
+
   module.exports = router;
