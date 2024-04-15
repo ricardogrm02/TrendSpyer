@@ -38,21 +38,21 @@ const MapScreen = ({ navigation }) => {
           {/* Profile button */}
           <TouchableOpacity onPress={goToProfile} style={styles.profileButton}>
             <Image
-              source={require('/Users/alexanderzavaleta/Desktop/Code/491/TrendSpyer/TrendSpyerApp/assets/profile_pic.png')}
+              source={require('./assets/profile_pic.png')}
               style={styles.image_profile}
             />
           </TouchableOpacity>
           {/* Crime button */}
           <TouchableOpacity onPress={goToCrimeReport} style={styles.crimeButton}>
             <Image
-              source={require('/Users/alexanderzavaleta/Desktop/Code/491/TrendSpyer/TrendSpyerApp/assets/cimeAdd.png')}
+              source={require('./assets/cimeAdd.png')}
               style={styles.image_crime}
             />
           </TouchableOpacity>
           {/* Gear button */}
           <TouchableOpacity onPress={goToSettings} style={styles.gearButton}>
             <Image
-              source={require('/Users/alexanderzavaleta/Desktop/Code/491/TrendSpyer/TrendSpyerApp/assets/gear.png')}
+              source={require('./assets/gear.png')}
               style={styles.image_gear}
             />
           </TouchableOpacity>
