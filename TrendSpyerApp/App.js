@@ -1,16 +1,19 @@
-import React from 'react';
-import {Text, View} from 'react-native';
 
-const HelloWorldApp = () => {
+import React from 'react';
+import {
+    Text,
+    SafeAreaView,
+} from 'react-native';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+
+const App = () => {
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}>
-      <Text>Hello, world!</Text>
-    </View>
+    <SafeAreaProvider>
+      <SafeAreaView>
+        <Text>Hello World</Text>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
-};
-export default HelloWorldApp;
+}
+
+export default App;
