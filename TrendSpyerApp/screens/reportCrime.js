@@ -65,6 +65,7 @@ const CrimeReportScreen = ({ navigation }) => { // Ensure navigation is passed h
                   setCategory(itemValue);
                   setCategoryModalVisible(false);
                 }}>
+                <Picker.Item label="Other" value="Other" />
                 <Picker.Item label="Reckless Driving" value="Reckless Driving" />
                 <Picker.Item label="Property Damage" value="Property Damage" />
                 <Picker.Item label="Theft" value="Theft" />
@@ -92,6 +93,7 @@ const CrimeReportScreen = ({ navigation }) => { // Ensure navigation is passed h
                   setTrend(itemValue);
                   setTrendModalVisible(false);
                 }}>
+                <Picker.Item label="Other" value="Other" />
                 <Picker.Item label="Fleeing Frenzy" value="Fleeing Frenzy" />
                 <Picker.Item label="Drink and Drive Danger" value="Drink and Drive Danger" />
                 <Picker.Item label="Vandalism Alert" value="Vandalism Alert" />
