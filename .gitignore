@@ -1,6 +1,9 @@
 # Prerequisites
 *.d
 
+# Ignore gradle.properties to avoid rewriting javahome path in the file
+/android/gradle.properties
+
 # Compiled Object files
 *.slo
 *.lo
