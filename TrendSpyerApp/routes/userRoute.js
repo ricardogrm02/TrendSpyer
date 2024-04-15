@@ -80,6 +80,22 @@ router.get("/info", async (req, res) => {
     }
   });
 
+  router.post("/upload/old/report", async (req, res) => {
+    try {
+      const report = await Report.create({
+        crime: req.body.crime, 
+        tag: req.body.tag,
+        reportDate: req.body.reportDate,
+        category: req.body.category,
+        reportID: req.body.reportID
+      })
+      res.status(200).send("Uploaded report to the database")
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
   router.delete('/deactivate', async (req, res) => {
     try {
         const user = await User.findOneAndDelete({email: req.body.email});
