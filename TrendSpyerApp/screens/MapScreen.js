@@ -15,7 +15,7 @@ const MapScreen = ({ navigation }) => {
   };
   
   const goToProfile = () => {
-    navigation.navigate('Profile');
+    navigation.navigate('ProfilePageScreen');
   };
 
   
