@@ -12,8 +12,7 @@ const UpdatePersonalInfoScreen = () => {
       alert('Emails do not match!');
       return;
     }
-    // Here you would typically handle the update logic,
-    // such as sending data to a backend server
+   
     console.log('Updated Info:', { name, email });
     alert('Info Updated Successfully!');
   };

@@ -7,6 +7,7 @@ const windowHeight = Dimensions.get('window').height;
 const MapScreen = ({ navigation }) => {
 
   const goToCrimeReport = () => {
+    console.log("Click CLACK")
     navigation.navigate('ReportScreen'); 
   };
   
