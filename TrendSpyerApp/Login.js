@@ -13,7 +13,7 @@ const screenHeight = Dimensions.get('window').height
 
 
 
-const LoginScreen = () => {
+const LoginScreen = ({navigation}) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
@@ -27,6 +27,10 @@ const LoginScreen = () => {
 
   const Login = () => {
     console.log(`logging in with ${username} & ${password}`)
+  }
+
+  const Register = () => {
+    navigation.navigate("RegisterScreen")
   }
 
   const apiAuthentification = async () => {
@@ -56,22 +60,22 @@ const LoginScreen = () => {
           <TextInput style = {styles.input}placeholder='Enter Password' onChangeText={text => updatePassword(text)}></TextInput>
           </View>
           <View style = {{flexDirection: 'row', justifyContent: 'center'}}>
-          <Pressable disabled = {username.length == 0 || password.length == 0} onPress={() => Login}>
             <View style = {styles.pressSpace}>
+            <Pressable disabled = {username.length == 0 || password.length == 0} onPress={() => Login}>
               <Text style = {{color: "#24A0ED"}}>Login</Text>
+              </Pressable>
             </View> 
-            </Pressable>
-            <Pressable>
             <View style = {styles.pressSpace}>
+            <Pressable onPress={Register}>
               <Text style = {{color: "#24A0ED"}}>Register</Text>
+            </Pressable>
             </View>
-          </Pressable>
           </View>
-          <Pressable>
           <View style = {styles.duoAuth}>
+          <Pressable>
               <Text style = {{color: "#24A0ED"}}>Continue with CSUF</Text>
+            </Pressable> 
             </View> 
-          </Pressable>
           <Text>PASSWORD: {password} </Text>
           <Text>USER EMAIL: {username} </Text>
         </View>
@@ -103,7 +107,7 @@ const styles = StyleSheet.create({
     height: 23,
     justifyContent: 'center',
     bottom: 80,
-    margin: 10
+    marginHorizontal: 10
 
   },
 

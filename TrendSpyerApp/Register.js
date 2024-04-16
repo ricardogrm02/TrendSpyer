@@ -76,16 +76,16 @@ const Login = () => {
           <TextInput style = {styles.input}placeholder='Re-Enter Password' onChangeText={text => confrimPassword(text)}></TextInput>
           </View>
           <View style = {{flexDirection: 'row', justifyContent: 'center'}}>
-          <Pressable onPress={Login}>
             <View style = {styles.pressSpace}>
+              <Pressable onPress={Login}>
               <Text style = {{color: "#24A0ED"}}>Login</Text>
+               </Pressable>
             </View> 
-            </Pressable>
-            <Pressable onPress ={Login}>
             <View style = {styles.pressSpace}>
-              <Text style = {{color: "#24A0ED"}}>Register</Text>
+              <Pressable onPress ={Login}>
+                <Text style = {{color: "#24A0ED"}}>Register</Text>
+              </Pressable>
             </View>
-          </Pressable>
           </View>
           <Pressable>
           <View style = {styles.duoAuth}>
@@ -119,6 +119,7 @@ const styles = StyleSheet.create({
     alignContent: 'center',
   },
 
+  //margin was originally 10
   pressSpace: {
     backgroundColor: "#EDFFD6",
     borderColor: 'black',
@@ -128,7 +129,7 @@ const styles = StyleSheet.create({
     width: 94,
     height: 23,
     justifyContent: 'center',
-    margin: 10,
+    marginHorizontal: 10,
     top: 40
   },
 
