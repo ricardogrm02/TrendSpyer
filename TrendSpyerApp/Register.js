@@ -4,15 +4,15 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {StyleSheet, View, TextInput, Button, SafeAreaView, Text, ScrollView, Pressable, Dimensions, ImageBackground, Image, ActivityIndicator} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-const Stack = createNativeStackNavigator()
+import axios from 'axios'
+// const Stack = createNativeStackNavigator()
 const AppContext = createContext()
 const screenWidth = Dimensions.get('window').width
 const screenHeight = Dimensions.get('window').height
 
 
 
-
-const App = () => {
+const RegisterScreen = ({navigation}) => {
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -34,26 +34,35 @@ const confrimPassword = (confirmation) => {
     setConfirmation(confirmation)
 }
 
-  const Login = () => {
-    console.log(`logging in with ${username} & ${password}`)
-  }
+const Login = () => {
+  console.log("login clicked")
+  navigation.navigate("LoginScreen")
+
+}
+/*
+   userName: {type: String, required: true},
+    age: {type: Number, required: true},
+    email: {type: String, required: true, unique: true},
+    password: {type: String, required: true},
+    sex: {type: String, required: true},
+    personName: {type: String, required: true},
+ */
+  const Register = async () => {
+    try {
+      const response = await axios.post('http://10.0.2.2:3000/api/user/register', {
+      
+      });
+      console.log(response.data);
+      alert('Registered Successfuly');
+    } catch (error) {
+      console.error('Register Error', error);
+      alert('Failed to Register');
+    }
+  };
 
   const apiAuthentification = async () => {
 
   }
-
-
-
-  /* 
-  <Pressable>
-            <View style = {styles.pressSpace}>
-              <Image style = {{height: 30, width: 30, resizeMode: 'contain'}}source = {require('./fullerton_logo.jpg')}></Image>
-              <Text style = {{alignItems: 'center', justifyContent:'center'}}>Continue with CSUF</Text>
-            </View>
-          </Pressable>
-  */
-
-  
 
   return (
     <SafeAreaProvider style = {styles.screen}>
@@ -67,12 +76,12 @@ const confrimPassword = (confirmation) => {
           <TextInput style = {styles.input}placeholder='Re-Enter Password' onChangeText={text => confrimPassword(text)}></TextInput>
           </View>
           <View style = {{flexDirection: 'row', justifyContent: 'center'}}>
-          <Pressable disabled = {username.length == 0 || password.length == 0} onPress={() => Login}>
+          <Pressable onPress={Login}>
             <View style = {styles.pressSpace}>
               <Text style = {{color: "#24A0ED"}}>Login</Text>
             </View> 
             </Pressable>
-            <Pressable>
+            <Pressable onPress ={Login}>
             <View style = {styles.pressSpace}>
               <Text style = {{color: "#24A0ED"}}>Register</Text>
             </View>
@@ -94,6 +103,7 @@ const confrimPassword = (confirmation) => {
     </SafeAreaProvider>
   );
 }
+
 const styles = StyleSheet.create({
   screen: {
     backgroundColor: '#0D7D2D',
@@ -146,7 +156,7 @@ const styles = StyleSheet.create({
   },
 
 })
-export default App;
+export default RegisterScreen;
 
 
 

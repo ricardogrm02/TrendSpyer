@@ -5,7 +5,9 @@ import { Provider as PaperProvider, DefaultTheme } from 'react-native-paper';
 import ReportScreen from './screens/reportCrime';
 import DisplayCrimeScreen from './screens/displayCrimeScreen';  
 import MapScreen from './screens/MapScreen';  
-import SettingsScreen from './screens/settings';  
+import SettingsScreen from './screens/settings';
+import RegisterScreen from './Register'
+import LoginScreen from './Login'
 
 const Stack = createNativeStackNavigator();
 
@@ -22,7 +24,21 @@ const App = () => {
   return (
     <PaperProvider theme={theme}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="MapScreen">
+        <Stack.Navigator initialRouteName="RegisterScreen">
+
+        <Stack.Screen
+            name="RegisterScreen"
+            component={RegisterScreen}
+            options={{ headerShown: false }} // This hides the header
+          />
+        
+        <Stack.Screen
+            name="LoginScreen"
+            component={LoginScreen}
+            options={{ headerShown: false }} // This hides the header
+          />
+
+
         <Stack.Screen
             name="MapScreen"
             component={MapScreen}

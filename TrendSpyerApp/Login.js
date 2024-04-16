@@ -13,7 +13,7 @@ const screenHeight = Dimensions.get('window').height
 
 
 
-const App = () => {
+const LoginScreen = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
@@ -132,4 +132,4 @@ const styles = StyleSheet.create({
   },
 
 })
-export default App;
+export default LoginScreen;
