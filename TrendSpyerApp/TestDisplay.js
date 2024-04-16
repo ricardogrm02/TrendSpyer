@@ -22,7 +22,7 @@ const App = () => {
   return (
     <PaperProvider theme={theme}>
       <NavigationContainer>
-        <Stack.Navigator>
+        <Stack.Navigator initialRouteName="MapScreen">
         <Stack.Screen
             name="MapScreen"
             component={MapScreen}
