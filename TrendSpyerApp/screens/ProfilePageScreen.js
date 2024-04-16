@@ -28,7 +28,7 @@ const ProfilePageScreen = ({ navigation }) => {
                 <Text style={styles.name}>{userName}</Text>
             </View>
             <List.Section>
-                <List.Subheader style={styles.subheader}>Settings</List.Subheader>
+                <List.Subheader style={styles.subheader}>Reports</List.Subheader>
                 <View style={styles.switchContainer}>
                     <Text style={styles.switchLabel}>Show Reports</Text>
                     <Switch
