@@ -1908,17 +1908,17 @@
     invariant "^2.2.4"
     nullthrows "^1.1.1"
 
-"@react-navigation/core@^6.4.13":
-  version "6.4.13"
-  resolved "https://registry.npmjs.org/@react-navigation/core/-/core-6.4.13.tgz"
-  integrity sha512-RBUpNG11SEYfvvWefJPxz8Xu/feWuPxln7ddRSY92aKs7u6fj/Z694Jun76Gmmw/RIHW6xcu3PH2v3Wm8nbumg==
+"@react-navigation/core@^6.4.16":
+  version "6.4.16"
+  resolved "https://registry.npmjs.org/@react-navigation/core/-/core-6.4.16.tgz"
+  integrity sha512-UDTJBsHxnzgFETR3ZxhctP+RWr4SkyeZpbhpkQoIGOuwSCkt1SE0qjU48/u6r6w6XlX8OqVudn1Ab0QFXTHxuQ==
   dependencies:
     "@react-navigation/routers" "^6.1.9"
     escape-string-regexp "^4.0.0"
     nanoid "^3.1.23"
     query-string "^7.1.3"
     react-is "^16.13.0"
-    use-latest-callback "^0.1.7"
+    use-latest-callback "^0.1.9"
 
 "@react-navigation/drawer@^6.6.6":
   version "6.6.11"
@@ -1934,20 +1934,20 @@
   resolved "https://registry.npmjs.org/@react-navigation/elements/-/elements-1.3.30.tgz"
   integrity sha512-plhc8UvCZs0UkV+sI+3bisIyn78wz9O/BiWZXpounu72k/R/Sj5PuZYFJ1fi6psvriUveMCGh4LeZckAZu2qiQ==
 
-"@react-navigation/native-stack@^6.9.17":
-  version "6.9.22"
-  resolved "https://registry.npmjs.org/@react-navigation/native-stack/-/native-stack-6.9.22.tgz"
-  integrity sha512-1GGztUWXY+lbsIYkGV3HCYBF7qIOHnx663csgXArzunk8CcWNsUYwM7k1/Ql8e2LyvJtdjE3OS4fjLh+d72/YA==
+"@react-navigation/native-stack@^6.9.26":
+  version "6.9.26"
+  resolved "https://registry.npmjs.org/@react-navigation/native-stack/-/native-stack-6.9.26.tgz"
+  integrity sha512-++dueQ+FDj2XkZ902DVrK79ub1vp19nSdAZWxKRgd6+Bc0Niiesua6rMCqymYOVaYh+dagwkA9r00bpt/U5WLw==
   dependencies:
-    "@react-navigation/elements" "^1.3.26"
+    "@react-navigation/elements" "^1.3.30"
     warn-once "^0.1.0"
 
-"@react-navigation/native@^6.0.0", "@react-navigation/native@^6.1.9":
-  version "6.1.14"
-  resolved "https://registry.npmjs.org/@react-navigation/native/-/native-6.1.14.tgz"
-  integrity sha512-nCrVi4cHXx6VnXV8fj+lLb8zjLt1LZkpxudhfV/i1KstgaoGzh9FgFDIvbWONGE8f403FIsYUnZxKHvN7asp1w==
+"@react-navigation/native@^6.0.0", "@react-navigation/native@^6.1.17":
+  version "6.1.17"
+  resolved "https://registry.npmjs.org/@react-navigation/native/-/native-6.1.17.tgz"
+  integrity sha512-mer3OvfwWOHoUSMJyLa4vnBH3zpFmCwuzrBPlw7feXklurr/ZDiLjLxUScOot6jLRMz/67GyilEYMmP99LL0RQ==
   dependencies:
-    "@react-navigation/core" "^6.4.13"
+    "@react-navigation/core" "^6.4.16"
     escape-string-regexp "^4.0.0"
     fast-deep-equal "^3.1.3"
     nanoid "^3.1.23"
@@ -4016,6 +4016,11 @@ fs.realpath@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/fs.realpath/-/fs.realpath-1.0.0.tgz"
   integrity sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==
+
+fsevents@^2.3.2, fsevents@~2.3.2:
+  version "2.3.3"
+  resolved "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz"
+  integrity sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==
 
 function-bind@^1.1.2:
   version "1.1.2"
@@ -6732,6 +6737,12 @@ react-native-gesture-handler@^2.14.0, "react-native-gesture-handler@>= 1.0.0":
     lodash "^4.17.21"
     prop-types "^15.7.2"
 
+react-native-maps@^1.14.0:
+  version "1.14.0"
+  resolved "https://registry.npmjs.org/react-native-maps/-/react-native-maps-1.14.0.tgz"
+  integrity sha512-ai7h4UdRLGPFCguz1fI8n4sKLEh35nZXHAH4nSWyAeHGrN8K9GjICu9Xd4Q5Ok4h+WwrM6Xz5pGbF3Qm1tO6iQ==
+  dependencies:
+    "@types/geojson" "^7946.0.13"
 
 react-native-paper@^5.12.3:
   version "5.12.3"
@@ -6741,14 +6752,6 @@ react-native-paper@^5.12.3:
     "@callstack/react-theme-provider" "^3.0.9"
     color "^3.1.2"
     use-latest-callback "^0.1.5"
-    
-react-native-maps@^1.14.0:
-  version "1.14.0"
-  resolved "https://registry.npmjs.org/react-native-maps/-/react-native-maps-1.14.0.tgz"
-  integrity sha512-ai7h4UdRLGPFCguz1fI8n4sKLEh35nZXHAH4nSWyAeHGrN8K9GjICu9Xd4Q5Ok4h+WwrM6Xz5pGbF3Qm1tO6iQ==
-  dependencies:
-    "@types/geojson" "^7946.0.13"
-
 
 react-native-reanimated@^3.6.1, "react-native-reanimated@>= 1.0.0":
   version "3.7.2"
@@ -6760,19 +6763,18 @@ react-native-reanimated@^3.6.1, "react-native-reanimated@>= 1.0.0":
     convert-source-map "^2.0.0"
     invariant "^2.2.4"
 
-react-native-safe-area-context@*, react-native-safe-area-context@^4.7.4, "react-native-safe-area-context@>= 3.0.0":
+react-native-safe-area-context@*, react-native-safe-area-context@^4.9.0, "react-native-safe-area-context@>= 3.0.0":
   version "4.9.0"
   resolved "https://registry.npmjs.org/react-native-safe-area-context/-/react-native-safe-area-context-4.9.0.tgz"
   integrity sha512-/OJD9Pb8IURyvn+1tWTszWPJqsbZ4hyHBU9P0xhOmk7h5owSuqL0zkfagU0pg7Vh0G2NKQkaPpUKUMMCUMDh/w==
 
-react-native-screens@^3.27.0, "react-native-screens@>= 3.0.0":
-  version "3.29.0"
-  resolved "https://registry.npmjs.org/react-native-screens/-/react-native-screens-3.29.0.tgz"
-  integrity sha512-yB1GoAMamFAcYf4ku94uBPn0/ani9QG7NdI98beJ5cet2YFESYYzuEIuU+kt+CNRcO8qqKeugxlfgAa3HyTqlg==
+react-native-screens@^3.30.1, "react-native-screens@>= 3.0.0":
+  version "3.30.1"
+  resolved "https://registry.npmjs.org/react-native-screens/-/react-native-screens-3.30.1.tgz"
+  integrity sha512-/muEvjocCtFb+j5J3YmLvB25+f4rIU8hnnxgGTkXcAf2omPBY8uhPjJaaFUlvj64VEoEzJcRpugbXWsjfPPIFg==
   dependencies:
     react-freeze "^1.0.0"
     warn-once "^0.1.0"
-
 
 react-native-vector-icons@*, react-native-vector-icons@^10.0.3:
   version "10.0.3"
@@ -6782,10 +6784,7 @@ react-native-vector-icons@*, react-native-vector-icons@^10.0.3:
     prop-types "^15.7.2"
     yargs "^16.1.1"
 
-react-native@*, react-native@>=0.57, react-native@>=0.60.0, react-native@0.72.7:
-
 react-native@*, "react-native@>= 0.64.3", react-native@>=0.57, react-native@>=0.60.0, react-native@0.72.7:
-
   version "0.72.7"
   resolved "https://registry.npmjs.org/react-native/-/react-native-0.72.7.tgz"
   integrity sha512-dqVFojOO9rOvyFbbM3/v9/GJR355OSuBhEY4NQlMIRc2w0Xch5MT/2uPoq3+OvJ+5h7a8LFAco3fucSffG0FbA==
@@ -6854,8 +6853,7 @@ react-test-renderer@18.2.0:
     react-shallow-renderer "^16.15.0"
     scheduler "^0.23.0"
 
-
-react@*, "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", react@^18.2.0, "react@>= 17.0.1", react@>=16, react@>=16.8, react@>=17.0.0, react@18.2.0:
+react@*, "react@^16.0.0 || ^17.0.0 || ^18.0.0", "react@^16.8.0 || ^17.0.0 || ^18.0.0", react@^18.2.0, "react@>= 17.0.1", react@>=16, react@>=16.3.0, react@>=16.8, react@>=17.0.0, react@18.2.0:
   version "18.2.0"
   resolved "https://registry.npmjs.org/react/-/react-18.2.0.tgz"
   integrity sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==
@@ -7873,7 +7871,7 @@ uri-js@^4.2.2:
   dependencies:
     punycode "^2.1.0"
 
-use-latest-callback@^0.1.5, use-latest-callback@^0.1.7:
+use-latest-callback@^0.1.5, use-latest-callback@^0.1.9:
   version "0.1.9"
   resolved "https://registry.npmjs.org/use-latest-callback/-/use-latest-callback-0.1.9.tgz"
   integrity sha512-CL/29uS74AwreI/f2oz2hLTW7ZqVeV5+gxFeGudzQrgkCytrHw33G4KbnQOrRlAEzzAFXi7dDLMC9zhWcVpzmw==
