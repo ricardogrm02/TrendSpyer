@@ -5,18 +5,21 @@ import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 const windowHeight = Dimensions.get('window').height;
 
 const MapScreen = ({ navigation }) => {
+
   const goToCrimeReport = () => {
-    navigation.navigate('AddCrimeScreen');
+    navigation.navigate('ReportScreen'); 
+  };
+  
+  const goToSettings = () => {
+    navigation.navigate('SettingsScreen'); 
   };
   
   const goToProfile = () => {
     navigation.navigate('Profile');
   };
-  
-  const goToSettings = () => {
-    navigation.navigate('Settings');
-  };
 
+  
+  
   return (
     <View style={styles.container}>
       {/*google map*/}
@@ -38,21 +41,21 @@ const MapScreen = ({ navigation }) => {
           {/* Profile button */}
           <TouchableOpacity onPress={goToProfile} style={styles.profileButton}>
             <Image
-              source={require('./assets/profile_pic.png')}
+              source={require('../assets/profile_pic.png')}
               style={styles.image_profile}
             />
           </TouchableOpacity>
           {/* Crime button */}
           <TouchableOpacity onPress={goToCrimeReport} style={styles.crimeButton}>
             <Image
-              source={require('./assets/cimeAdd.png')}
+              source={require('../assets/cimeAdd.png')}
               style={styles.image_crime}
             />
           </TouchableOpacity>
           {/* Gear button */}
           <TouchableOpacity onPress={goToSettings} style={styles.gearButton}>
             <Image
-              source={require('./assets/gear.png')}
+              source={require('../assets/gear.png')}
               style={styles.image_gear}
             />
           </TouchableOpacity>
