@@ -5,18 +5,22 @@ import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 const windowHeight = Dimensions.get('window').height;
 
 const MapScreen = ({ navigation }) => {
+
   const goToCrimeReport = () => {
-    navigation.navigate('AddCrimeScreen');
-  };
-  
-  const goToProfile = () => {
-    navigation.navigate('Profile');
+    console.log("Click CLACK")
+    navigation.navigate('ReportScreen'); 
   };
   
   const goToSettings = () => {
-    navigation.navigate('Settings');
+    navigation.navigate('SettingsScreen'); 
+  };
+  
+  const goToProfile = () => {
+    navigation.navigate('ProfilePageScreen');
   };
 
+  
+  
   return (
     <View style={styles.container}>
       {/*google map*/}
@@ -38,21 +42,21 @@ const MapScreen = ({ navigation }) => {
           {/* Profile button */}
           <TouchableOpacity onPress={goToProfile} style={styles.profileButton}>
             <Image
-              source={require('/Users/alexanderzavaleta/Desktop/Code/491/TrendSpyer/TrendSpyerApp/assets/profile_pic.png')}
+              source={require('../assets/profile_pic.png')}
               style={styles.image_profile}
             />
           </TouchableOpacity>
           {/* Crime button */}
           <TouchableOpacity onPress={goToCrimeReport} style={styles.crimeButton}>
             <Image
-              source={require('/Users/alexanderzavaleta/Desktop/Code/491/TrendSpyer/TrendSpyerApp/assets/cimeAdd.png')}
+              source={require('../assets/cimeAdd.png')}
               style={styles.image_crime}
             />
           </TouchableOpacity>
           {/* Gear button */}
           <TouchableOpacity onPress={goToSettings} style={styles.gearButton}>
             <Image
-              source={require('/Users/alexanderzavaleta/Desktop/Code/491/TrendSpyer/TrendSpyerApp/assets/gear.png')}
+              source={require('../assets/gear.png')}
               style={styles.image_gear}
             />
           </TouchableOpacity>

@@ -1,4 +1,5 @@
 
+
 import React, { createContext, useState} from 'react';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {StyleSheet, View, TextInput, Button, SafeAreaView, Text, ScrollView, Pressable, Dimensions, ImageBackground, Image, ActivityIndicator} from 'react-native';
@@ -132,7 +133,3 @@ const styles = StyleSheet.create({
 
 })
 export default App;
-
-
-
-
