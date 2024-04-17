@@ -92,7 +92,6 @@ const Login = () => {
  */
   const Register = async () => {
     try {
-
       const response = await axios.post('http://10.0.2.2:3000/api/user/register', {
       userName: username,
       age: userAge,
@@ -102,6 +101,7 @@ const Login = () => {
       personName: legalName});
       console.log(response.data);
       alert('Registered Successfuly');
+      navigation.navigate("MapScreen")
     } catch (error) {
       console.error('Register Error', error);
       alert('Failed to Register');
