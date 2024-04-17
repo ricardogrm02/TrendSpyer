@@ -53,7 +53,7 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
-    "server": "nodemon server.js"
+    "server": "nodemon ./server/server.js"
   },
   "version": "0.0.1",
   "description": "This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).",
