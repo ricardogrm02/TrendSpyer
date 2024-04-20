@@ -143,12 +143,6 @@ const Login = () => {
               <Text style = {{color: "#24A0ED"}}>Continue with CSUF</Text>
             </View> 
           </Pressable>
-          <View style = {{top: 60}}>
-          <Text>USERNAME: {username} </Text>
-          <Text>USER EMAIL: {email} </Text>
-          <Text>PASSWORD: {password} </Text>
-          <Text>RE-ENTER PASSWORD: {passwordConfirmation} </Text>
-          </View>
         </View>
     </SafeAreaProvider>
   );
