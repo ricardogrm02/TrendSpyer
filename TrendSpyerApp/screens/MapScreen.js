@@ -1,12 +1,15 @@
 import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';  // Import Marker
 
 const windowHeight = Dimensions.get('window').height;
 
 const MapScreen = ({ navigation }) => {
+  const latitude = 33.8823;
+  const longitude = -117.8851;
 
   const goToCrimeReport = () => {
+    console.log("Click CLACK")
     navigation.navigate('ReportScreen'); 
   };
   
@@ -15,49 +18,39 @@ const MapScreen = ({ navigation }) => {
   };
   
   const goToProfile = () => {
-    navigation.navigate('Profile');
+    navigation.navigate('ProfilePageScreen');
   };
 
-  
-  
   return (
     <View style={styles.container}>
-      {/*google map*/}
       <View style={styles.googleContainer}>
         <MapView
           provider={PROVIDER_GOOGLE}
           style={styles.map}
           region={{
-            latitude: 33.8823,
-            longitude: -117.8851,
+            latitude: latitude,
+            longitude: longitude,
             latitudeDelta: 0.04,
             longitudeDelta: 0.05,
           }}
-        />
+        >
+          <Marker
+            coordinate={{ latitude: latitude, longitude: longitude }}
+            pinColor="red" // Set the color of the marker to red
+          />
+        </MapView>
       </View>
       <View style={styles.rectangle}>
         <Text style={styles.title}>TrendSpyer</Text>
         <View style={styles.buttonsContainer}>
-          {/* Profile button */}
           <TouchableOpacity onPress={goToProfile} style={styles.profileButton}>
-            <Image
-              source={require('../assets/profile_pic.png')}
-              style={styles.image_profile}
-            />
+            <Image source={require('../assets/profile_pic.png')} style={styles.image_profile} />
           </TouchableOpacity>
-          {/* Crime button */}
           <TouchableOpacity onPress={goToCrimeReport} style={styles.crimeButton}>
-            <Image
-              source={require('../assets/cimeAdd.png')}
-              style={styles.image_crime}
-            />
+            <Image source={require('../assets/cimeAdd.png')} style={styles.image_crime} />
           </TouchableOpacity>
-          {/* Gear button */}
           <TouchableOpacity onPress={goToSettings} style={styles.gearButton}>
-            <Image
-              source={require('../assets/gear.png')}
-              style={styles.image_gear}
-            />
+            <Image source={require('../assets/gear.png')} style={styles.image_gear} />
           </TouchableOpacity>
         </View>
       </View>
@@ -130,4 +123,3 @@ const styles = StyleSheet.create({
 });
 
 export default MapScreen;
-
