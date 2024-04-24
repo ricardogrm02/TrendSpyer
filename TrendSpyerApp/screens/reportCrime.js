@@ -54,6 +54,7 @@ const CrimeReportScreen = ({ navigation }) => { // Ensure navigation is passed h
             onPress={() => setCategoryModalVisible(true)} 
             style={styles.button}
             contentStyle={styles.buttonContent}
+            labelStyle={styles.buttonLabel}
           >
             Select Category: {category || "None"}
           </Button>
@@ -82,6 +83,7 @@ const CrimeReportScreen = ({ navigation }) => { // Ensure navigation is passed h
             onPress={() => setTrendModalVisible(true)} 
             style={styles.button}
             contentStyle={styles.buttonContent}
+            labelStyle={styles.buttonLabel}
           >
             Select Trend: {trend || "None"}
           </Button>
@@ -112,15 +114,15 @@ const CrimeReportScreen = ({ navigation }) => { // Ensure navigation is passed h
           </Portal>
 
 
-          <Button mode="contained" onPress={handleSubmit} style={styles.submitButton}>
+          <Button mode="contained" onPress={handleSubmit} style={styles.submitButton} labelStyle={styles.buttonLabel}>
             Submit Report
           </Button>
 
           {/* Navigation button to go to DisplayCrimeScreen */}
           <Button
-            mode="outlined"
             onPress={() => navigation.navigate('DisplayCrime')}
-            style={styles.navButton}>
+            style={styles.navButton}
+            labelStyle={styles.buttonLabel}>
             View Reports
           </Button>
         </View>
@@ -163,9 +165,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     backgroundColor: '#1E90FF',
   },
+  buttonLabel: {
+    color: '#FFF', 
+  },
   buttonContent: {
     height: 50,
-    fontSize: 18
+    fontSize: 18,
   },
   submitButton: {
     marginTop: 10,
