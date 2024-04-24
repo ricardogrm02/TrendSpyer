@@ -9,6 +9,8 @@ import SettingsScreen from './screens/settings';
 import ProfilePageScreen from './screens/ProfilePageScreen';  
 import ChangePasswordScreen from './screens/ChangePasswordScreen'; // Ensure the path is correct
 import UpdatePersonalInfoScreen from './screens/UpdatePersonalInfoScreen'; // Ensure the path is correct
+import RegisterScreen from './Register'
+import LoginScreen from './Login'
 
 const Stack = createNativeStackNavigator();
 
@@ -25,8 +27,22 @@ const App = () => {
   return (
     <PaperProvider theme={theme}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName='MapScreen'>
-          <Stack.Screen
+        <Stack.Navigator initialRouteName="LoginScreen">
+
+        <Stack.Screen
+            name="RegisterScreen"
+            component={RegisterScreen}
+            options={{ headerShown: false }} // This hides the header
+          />
+        
+        <Stack.Screen
+            name="LoginScreen"
+            component={LoginScreen}
+            options={{ headerShown: false }} // This hides the header
+          />
+
+
+        <Stack.Screen
             name="MapScreen"
             component={MapScreen}
             options={{ headerShown: false }}

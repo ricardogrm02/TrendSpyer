@@ -4,56 +4,113 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {StyleSheet, View, TextInput, Button, SafeAreaView, Text, ScrollView, Pressable, Dimensions, ImageBackground, Image, ActivityIndicator} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-const Stack = createNativeStackNavigator()
+import axios from 'axios'
+// const Stack = createNativeStackNavigator()
 const AppContext = createContext()
 const screenWidth = Dimensions.get('window').width
-const screenHeight = Dimensions.get('window').height
+let passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/
+let  agePattern = /^(?:0|[1-9]\d?|1[0-1]\d|120)$/;
+let emailPattern = /^[a-zA-Z0-9._%+-]+@csu\.fullerton\.edu$/;
 
 
 
 
-const App = () => {
+const RegisterScreen = ({navigation}) => {
+  const [legalName, setLegalName] = useState('')
   const [username, setUsername] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [passwordConfirmation, setConfirmation] = useState('')
+  const [userAge, setAge] = useState(-1)
+  const [userSex, setSex] = useState('')
+
+  const updateLegalName = (name) => {
+    if (name.length > 0) {
+     setLegalName(name)
+    }
+}
 
   const updateUsername = (user) => {
+     if (user.length > 8) {
       setUsername(user)
+     } else {
+      console.log("Username must be at least 8 characters in length")
+     }
   }
 
   const updateEmail = (email) => {
-    setEmail(email)
+    if (emailPattern.test(email)){
+     setEmail(email)
+    } else {
+      console.log("Email must contain a csu.fullerton.edu domain to register with this app.")
+    }
   }
 
   const updatePassword = (password) => {
-    setPassword(password)
+    if (passwordPattern.test(password)) {
+        setPassword(password)
+    }else {
+      console.log("Please ensure your password contains at least 8 characters, at least 1 capital, and at least 1 special character")
+    }
 }
+
+const updateSex = (sex) => {
+  if (sex.toUpperCase() == "M" || sex.toUpperCase() == "F") {
+    setSex(sex)
+  } else {
+    console.log("Please Enter M or F")
+  }
+}
+
+const updateAge = (user_age) => {
+  if (agePattern.test(user_age)) {
+    setAge(user_age)
+  } else {
+    console.log("Please Enter a valid age below 120")
+  }
+} 
 
 const confrimPassword = (confirmation) => {
+  if (confirmation == password) {
     setConfirmation(confirmation)
+  } else {
+    console.log("Please ensure your input matches with the previous password field.")
+  }
 }
 
-  const Login = () => {
-    console.log(`logging in with ${username} & ${password}`)
-  }
+const Login = () => {
+  navigation.navigate("LoginScreen")
+
+}
+/*
+   userName: {type: String, required: true},
+    age: {type: Number, required: true},
+    email: {type: String, required: true, unique: true},
+    password: {type: String, required: true},
+    sex: {type: String, required: true},
+    personName: {type: String, required: true},
+ */
+  const Register = async () => {
+    try {
+      const response = await axios.post('http://10.0.2.2:3000/api/user/register', {
+      userName: username,
+      age: userAge,
+      email: email,
+      password: password,
+      sex: userSex,
+      personName: legalName});
+      console.log(response.data);
+      alert('Registered Successfuly');
+      navigation.navigate("MapScreen")
+    } catch (error) {
+      console.error('Register Error', error);
+      alert('Failed to Register');
+    }
+  };
 
   const apiAuthentification = async () => {
 
   }
-
-
-
-  /* 
-  <Pressable>
-            <View style = {styles.pressSpace}>
-              <Image style = {{height: 30, width: 30, resizeMode: 'contain'}}source = {require('./fullerton_logo.jpg')}></Image>
-              <Text style = {{alignItems: 'center', justifyContent:'center'}}>Continue with CSUF</Text>
-            </View>
-          </Pressable>
-  */
-
-  
 
   return (
     <SafeAreaProvider style = {styles.screen}>
@@ -61,39 +118,36 @@ const confrimPassword = (confirmation) => {
           <Image style = {{justifyContent: 'center', alignContent: 'center', right: 110, height: 150, resizeMode: 'contain', bottom: 100}} source = {require('./spy.jpg')}></Image>
           <Text style = {{color: "#FFFFFF", fontWeight: "bold", fontSize: 50, bottom: 120, left: 62}}>TrendSpyer</Text>
           <View style = {styles.TextInputContainer}>
+          <TextInput style = {styles.input}placeholder='Enter Legal Name' onChangeText={text => updateLegalName(text)}></TextInput>
           <TextInput style = {styles.input}placeholder='Enter Username' onChangeText={text => updateUsername(text)}></TextInput>
           <TextInput style = {styles.input}placeholder='Enter Email' onChangeText={text => updateEmail(text)}></TextInput>
+          <TextInput style = {styles.input}placeholder='Enter Sex' onChangeText={text => updateSex(text)}></TextInput>
+          <TextInput style = {styles.input}placeholder='Enter Age' onChangeText={text => updateAge(text)}></TextInput>
           <TextInput style = {styles.input}placeholder='Enter Password' onChangeText={text => updatePassword(text)}></TextInput>
           <TextInput style = {styles.input}placeholder='Re-Enter Password' onChangeText={text => confrimPassword(text)}></TextInput>
           </View>
           <View style = {{flexDirection: 'row', justifyContent: 'center'}}>
-          <Pressable disabled = {username.length == 0 || password.length == 0} onPress={() => Login}>
             <View style = {styles.pressSpace}>
+              <Pressable onPress={Login}>
               <Text style = {{color: "#24A0ED"}}>Login</Text>
+               </Pressable>
             </View> 
-            </Pressable>
-            <Pressable>
             <View style = {styles.pressSpace}>
-              <Text style = {{color: "#24A0ED"}}>Register</Text>
+              <Pressable onPress ={Register} disabled = {legalName.length == 0 || username.length == 0 || email.length == 0 || userAge == -1 || userSex.length >= 2 || userSex.length < 0 || password.legnth == 0 || passwordConfirmation == 0}>
+                <Text style = {{color: "#24A0ED"}}>Register</Text>
+              </Pressable>
             </View>
-          </Pressable>
           </View>
           <Pressable>
           <View style = {styles.duoAuth}>
               <Text style = {{color: "#24A0ED"}}>Continue with CSUF</Text>
             </View> 
           </Pressable>
-          <View style = {{top: 60}}>
-          <Text>USERNAME: {username} </Text>
-          <Text>USER EMAIL: {email} </Text>
-          <Text>PASSWORD: {password} </Text>
-          <Text>RE-ENTER PASSWORD: {passwordConfirmation} </Text>
-          </View>
-
         </View>
     </SafeAreaProvider>
   );
 }
+
 const styles = StyleSheet.create({
   screen: {
     backgroundColor: '#0D7D2D',
@@ -109,6 +163,7 @@ const styles = StyleSheet.create({
     alignContent: 'center',
   },
 
+  //margin was originally 10
   pressSpace: {
     backgroundColor: "#EDFFD6",
     borderColor: 'black',
@@ -118,14 +173,15 @@ const styles = StyleSheet.create({
     width: 94,
     height: 23,
     justifyContent: 'center',
-    margin: 10,
-    top: 40
+    marginHorizontal: 10,
+    top: 90
   },
 
   TextInputContainer: {
+    top: 30, 
     width: 300,
-    height: 50,
-    rowGap: 30,
+    height: 40,
+    rowGap: 10,
     justifyContent: 'center',
     alignContent: 'center',
     flexDirection: 'column',
@@ -142,11 +198,11 @@ const styles = StyleSheet.create({
     height: 30,
     justifyContent: 'center',
     left: screenWidth / 2 - 75,
-    top: 50
+    top: 100
   },
 
 })
-export default App;
+export default RegisterScreen;
 
 
 
