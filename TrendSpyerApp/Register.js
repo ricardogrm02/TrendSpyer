@@ -92,7 +92,6 @@ const Login = () => {
  */
   const Register = async () => {
     try {
-
       const response = await axios.post('http://10.0.2.2:3000/api/user/register', {
       userName: username,
       age: userAge,
@@ -102,6 +101,7 @@ const Login = () => {
       personName: legalName});
       console.log(response.data);
       alert('Registered Successfuly');
+      navigation.navigate("MapScreen")
     } catch (error) {
       console.error('Register Error', error);
       alert('Failed to Register');
@@ -143,12 +143,6 @@ const Login = () => {
               <Text style = {{color: "#24A0ED"}}>Continue with CSUF</Text>
             </View> 
           </Pressable>
-          <View style = {{top: 60}}>
-          <Text>USERNAME: {username} </Text>
-          <Text>USER EMAIL: {email} </Text>
-          <Text>PASSWORD: {password} </Text>
-          <Text>RE-ENTER PASSWORD: {passwordConfirmation} </Text>
-          </View>
         </View>
     </SafeAreaProvider>
   );
