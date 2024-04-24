@@ -69,8 +69,6 @@ const LoginScreen = ({navigation}) => {
               <Text style = {{color: "#24A0ED"}}>Continue with CSUF</Text>
             </Pressable> 
             </View> 
-          <Text>PASSWORD: {userPassword} </Text>
-          <Text>USER EMAIL: {userEmail} </Text>
         </View>
     </SafeAreaProvider>
   );
