@@ -1,15 +1,27 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
-import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';  // Import Marker
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import axios from 'axios';  // Import Axios for API calls
 
 const windowHeight = Dimensions.get('window').height;
 
 const MapScreen = ({ navigation }) => {
-  const latitude = 33.8823;
-  const longitude = -117.8851;
+  const [reports, setReports] = useState([]);  // State to hold the crime reports
+
+  useEffect(() => {
+    const fetchReports = async () => {
+      try {
+        const response = await axios.get('http://10.0.2.2:3000/api/report/info');  // Adjust this to your actual API endpoint
+        setReports(response.data);  // Store the fetched reports in state
+      } catch (error) {
+        console.error('Failed to fetch reports', error);
+      }
+    };
+
+    fetchReports();
+  }, []);
 
   const goToCrimeReport = () => {
-    console.log("Click CLACK")
     navigation.navigate('ReportScreen'); 
   };
   
@@ -23,23 +35,29 @@ const MapScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.googleContainer}>
-        <MapView
-          provider={PROVIDER_GOOGLE}
-          style={styles.map}
-          region={{
-            latitude: latitude,
-            longitude: longitude,
-            latitudeDelta: 0.04,
-            longitudeDelta: 0.05,
-          }}
-        >
+      <MapView
+        provider={PROVIDER_GOOGLE}
+        style={styles.map}
+        initialRegion={{
+          latitude: 33.8823,  // Default starting location
+          longitude: -117.8851,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
+        }}
+      >
+        {reports.map((report, index) => (
           <Marker
-            coordinate={{ latitude: latitude, longitude: longitude }}
-            pinColor="red" // Set the color of the marker to red
+            key={index}  // Use index as a key if unique id is not available
+            coordinate={{
+              latitude: report.location.coordinates[1],  // Latitude
+              longitude: report.location.coordinates[0],  // Longitude
+            }}
+            title={report.crime}  // Title of the marker
+            description={report.category}  // Description shown in the callout
+            pinColor="red"  // Color of the marker
           />
-        </MapView>
-      </View>
+        ))}
+      </MapView>
       <View style={styles.rectangle}>
         <Text style={styles.title}>TrendSpyer</Text>
         <View style={styles.buttonsContainer}>
@@ -56,7 +74,7 @@ const MapScreen = ({ navigation }) => {
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {

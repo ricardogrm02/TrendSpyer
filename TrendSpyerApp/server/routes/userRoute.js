@@ -65,20 +65,20 @@ router.get("/info", async (req, res) => {
   });
 
   router.post("/upload/report", async (req, res) => {
+    console.log("Received data:", req.body);  // Log received data (Gives all the info in json through server side :) )
     try {
-      const report = await Report.create({
-        crime: req.body.crime, 
-        tag: req.body.tag,
-        reportDate: Date.now(),
-        category: req.body.category,
-        reportID: req.body.reportID
-      })
-      res.status(200).send("Uploaded report to the database")
+      const report = await Report.create(req.body);
+      res.status(200).send("Uploaded report to the database");
     } catch (error) {
-      console.error(error);
+      console.error("Creation error:", error);  // Log detailed error (Gives all the info in json through server side :)  )
+      if (error.name === 'ValidationError') {
+        return res.status(400).json({ message: error.message, errors: error.errors });
+      }
       res.status(500).json({ message: "Internal server error" });
     }
   });
+  
+  
 
   router.post("/upload/old/report", async (req, res) => {
     try {
