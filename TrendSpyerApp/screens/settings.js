@@ -39,7 +39,7 @@ const SettingsScreen = ({ navigation }) => {
           title="Log Out"
           titleStyle={styles.title}
           left={props => <List.Icon {...props} icon="logout" color="#fff" />}
-          onPress={() => {/* handle logout logic here */}}
+          onPress={() =>  navigation.navigate("LoginScreen")}
           style={styles.listItem}
         />
       </List.Section>
