@@ -107,6 +107,45 @@ router.get("/info", async (req, res) => {
         res.status(500).send(error); // Send 500 if an error occurs
     }
 });
+
+  router.patch('/update/profile', async (req, res) => {
+    try {
+      const user = await User.findOneAndUpdate({email: req.body.oldEmail}, {$set: {email: req.body.email, personName: req.body.personName }}, {new:true})
+      if (!user) {
+        res.status(404).send()
+      }
+      res.status(200).send(user)
+    } catch (error) {
+      res.status(500).send(error)
+    }
+  })
+
+  router.patch('/update/password', async (req, res) => {
+    try {
+      const user = await User.findOne({ userName: req.body.username});
+      if (!user) {
+        return res.status(404).send("Could not find username");
+      }
+
+      console.log('Stored Password:', user.password);
+      console.log('Old Password:', req.body.oldPassword);
+      
+     
+      const isPasswordValid = await bcrypt.compare(req.body.oldPassword, user.password,);
+      console.log('Password comparison result:', isPasswordValid);
+  
+      if (isPasswordValid) {
+        user.password = await bcrypt.hash(req.body.password, 15);
+        await user.save(); // Save the updated user with the new password
+        return res.status(200).send(user);
+      } else {
+        return res.status(401).send(`Invalid Passwords: Old Password: ${bcrypt.hash(req.body.oldPassword, 15)} != User.password: ${user.password}`);
+      }
+    } catch (error) {
+      console.error('Error updating password:', error);
+      return res.status(500).send("Internal server error");
+    }
+  });
   /*    crime: {type: String, required: true},
     tag: {type: String, required: true},
     reportDate: {type: Date, required: true},
