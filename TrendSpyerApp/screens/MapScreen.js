@@ -1,25 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
+import { useIsFocused } from '@react-navigation/native';  // Import the useIsFocused hook
 import axios from 'axios';  // Import Axios for API calls
 
 const windowHeight = Dimensions.get('window').height;
 
 const MapScreen = ({ navigation }) => {
   const [reports, setReports] = useState([]);  // State to hold the crime reports
+  const isFocused = useIsFocused();  // Determines if the screen is currently focused
 
   useEffect(() => {
-    const fetchReports = async () => {
-      try {
-        const response = await axios.get('http://10.0.2.2:3000/api/report/info');  // Adjust this to your actual API endpoint
-        setReports(response.data);  // Store the fetched reports in state
-      } catch (error) {
-        console.error('Failed to fetch reports', error);
-      }
-    };
+    if (isFocused) {  // Only fetch reports if the screen is focused
+      const fetchReports = async () => {
+        try {
+          const response = await axios.get('http://10.0.2.2:3000/api/report/info');  // Adjust this to your actual API endpoint
+          setReports(response.data);  // Store the fetched reports in state
+        } catch (error) {
+          console.error('Failed to fetch reports', error);
+        }
+      };
 
-    fetchReports();
-  }, []);
+      fetchReports();
+    }
+  }, [isFocused]);  // Re-run the effect when isFocused changes
 
   const goToCrimeReport = () => {
     navigation.navigate('ReportScreen'); 
