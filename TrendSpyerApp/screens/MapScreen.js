@@ -1,36 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
-import { useIsFocused } from '@react-navigation/native';  // Import the useIsFocused hook
-import axios from 'axios';  // Import Axios for API calls
+import { useIsFocused } from '@react-navigation/native';
+import axios from 'axios';
 
 const windowHeight = Dimensions.get('window').height;
 
 const MapScreen = ({ navigation }) => {
-  const [reports, setReports] = useState([]);  // State to hold the crime reports
-  const isFocused = useIsFocused();  // Determines if the screen is currently focused
+  const [reports, setReports] = useState([]);
+  const isFocused = useIsFocused();
 
   useEffect(() => {
-    if (isFocused) {  // Only fetch reports if the screen is focused
-      const fetchReports = async () => {
-        try {
-          const response = await axios.get('http://10.0.2.2:3000/api/report/info');  // Adjust this to your actual API endpoint
-          setReports(response.data);  // Store the fetched reports in state
-        } catch (error) {
-          console.error('Failed to fetch reports', error);
-        }
-      };
-
+    if (isFocused) {
       fetchReports();
     }
-  }, [isFocused]);  // Re-run the effect when isFocused changes
+  }, [isFocused]);
+
+  const fetchReports = async () => {
+    try {
+      const response = await axios.get('http://10.0.2.2:3000/api/report/info');
+      setReports(response.data);
+    } catch (error) {
+      console.error('Failed to fetch reports', error);
+    }
+  };
 
   const goToCrimeReport = () => {
-    navigation.navigate('ReportScreen'); 
+    navigation.navigate('ReportScreen');
   };
   
   const goToSettings = () => {
-    navigation.navigate('SettingsScreen'); 
+    navigation.navigate('SettingsScreen');
   };
   
   const goToProfile = () => {
@@ -43,7 +43,7 @@ const MapScreen = ({ navigation }) => {
         provider={PROVIDER_GOOGLE}
         style={styles.map}
         initialRegion={{
-          latitude: 33.8823,  // Default starting location
+          latitude: 33.8823,
           longitude: -117.8851,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
@@ -51,14 +51,14 @@ const MapScreen = ({ navigation }) => {
       >
         {reports.map((report, index) => (
           <Marker
-            key={index}  // Use index as a key if unique id is not available
+            key={index}
             coordinate={{
-              latitude: report.location.coordinates[1],  // Latitude
-              longitude: report.location.coordinates[0],  // Longitude
+              latitude: report.location.coordinates[1],
+              longitude: report.location.coordinates[0],
             }}
-            title={report.crime}  // Title of the marker
-            description={report.category}  // Description shown in the callout
-            pinColor="red"  // Color of the marker
+            title={report.crime}
+            description={report.category}
+            pinColor="red"
           />
         ))}
       </MapView>
@@ -73,6 +73,10 @@ const MapScreen = ({ navigation }) => {
           </TouchableOpacity>
           <TouchableOpacity onPress={goToSettings} style={styles.gearButton}>
             <Image source={require('../assets/gear.png')} style={styles.image_gear} />
+          </TouchableOpacity>
+          {/* Refresh Button */}
+          <TouchableOpacity onPress={fetchReports} style={styles.refreshButton}>
+            <Image source={require('../assets/refresh_icon.png')} style={styles.image_refresh} />
           </TouchableOpacity>
         </View>
       </View>
@@ -116,6 +120,29 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   gearButton: {
+    width: 20,
+    height: 20,
+  },
+  refreshButton: {
+    position: 'absolute',
+    left: -250,  
+    bottom: -700,  
+    width: 50,  
+    height: 50,  
+    borderRadius: 25,  
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',  
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  image_refresh: {
     width: 20,
     height: 20,
   },
