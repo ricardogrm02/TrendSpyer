@@ -54,6 +54,7 @@ router.get("/info", async (req, res) => {
           {
             personName: user.personName,
             email: user.email,
+            userName: user.userName
           },
           "secret123",
         );
