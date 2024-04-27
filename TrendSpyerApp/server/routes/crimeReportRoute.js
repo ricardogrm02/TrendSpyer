@@ -15,7 +15,7 @@ router.get("/info", async (req, res) => {
     }
   });
 
-  router.delete("/delete", async (req, res) => {
+  router.delete("/delete/:reportID", async (req, res) => {
     try {
       const report = await CrimeReport.findOneAndDelete({reportID: req.body.reportID});
       if (!report) {
