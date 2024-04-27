@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { ScrollView, StyleSheet, View, Alert } from 'react-native';
+import React, { useState, useEffect, useRef} from 'react';
+import { ScrollView, StyleSheet, View, Alert, Image} from 'react-native';
 import { Button, Text, Modal, Portal, TextInput, Provider as PaperProvider } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
 import axios from 'axios';
 import Geolocation from 'react-native-geolocation-service';  
 import { PermissionsAndroid } from 'react-native';
+import {Camera, useCameraDevice} from 'react-native-vision-camera';
 
 async function requestLocationPermission() {
   try {
@@ -34,6 +35,15 @@ const CrimeReportScreen = ({ navigation }) => {
   const [location, setLocation] = useState(null);
   const [categoryModalVisible, setCategoryModalVisible] = useState(false);
   const [trendModalVisible, setTrendModalVisible] = useState(false);
+  //Use State to keep track of the camera permissions
+  const [cameraPermission, setCameraPermission] = useState(false);
+  //Use State to keep track if the camera permission has been set
+  const[isCameraPermissionSet, setIsCameraPermissionSet] = useState(false);
+  //Use State to keep track of the photo saved by the camera
+  const [photo, setPhoto] = useState(null)
+  //Set the camera to be the back camera
+  const device = useCameraDevice('back');
+  const camera = useRef(null);
 
   useEffect(() => {
     const currentDateTime = new Date().toISOString();
@@ -102,8 +112,32 @@ const CrimeReportScreen = ({ navigation }) => {
       Alert.alert('Error', `Failed to upload report: ${error.message}`);
     }
   };
-  
-  
+  //Handle Camera Permissions Upon Entering the Crime Report Screen
+  if (!isCameraPermissionSet) {
+    Camera.requestCameraPermission()
+      .then(granted =>setCameraPermission(granted))
+      .catch (error => console.warn(`Permission Refused: ${error}`));
+  }
+
+  const takePhoto = () => {
+    if (!isCameraPermissionSet) {
+      console.log("Can't Click yet")
+      return;
+    }
+    console.log("Camera permissions are enabled")
+    camera.current
+    .takePhoto()
+    .then(img => {
+      const asPath = `file://${img.path}`;
+      setPhoto(asPath);
+      console.log(photo)
+    })
+    .catch(e => console.warn(`could not takePhoto: ${e}`));
+};
+
+const deletePhoto = () => {
+  setPhoto(null)
+}
 
   return (
     <PaperProvider>
@@ -191,6 +225,36 @@ const CrimeReportScreen = ({ navigation }) => {
             View Reports
           </Button>
         </View>
+        <View style= {styles.form}>
+        <Text style={styles.title}>Take Photo</Text>
+        <Camera
+          ref={camera}
+          style={styles.cameraViewfinder}
+          device={device}
+          isActive={true}
+          photo={true}
+          onInitialized={() => setIsCameraPermissionSet(true)}
+        />
+        {photo != null && (
+        <View>
+          <Text style={styles.title}>Image Result</Text>
+          <Text style={styles.title}>{photo}</Text>
+          <Image style={styles.cameraPhotoResult} source={{uri: photo}} />
+        </View>
+        )}
+         <Button 
+            onPress={takePhoto} 
+            style={styles.button}
+            contentStyle={styles.buttonContent}
+          >Take Photo
+          </Button>
+          <Button 
+            onPress={deletePhoto}
+            style={styles.deletePhotoButton}
+            contentStyle={styles.buttonContent}
+          >Delete Photo
+          </Button>
+        </View>
       </ScrollView>
     </PaperProvider>
   );
@@ -210,6 +274,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 1,
     borderColor: '#555',
+    marginBottom: 30
   },
   title: {
     fontSize: 24,
@@ -246,7 +311,34 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 20,
     margin: 20,
-  }
+  },
+  cameraViewfinder: {
+    width: 300,
+    height: 300,
+    justifyContent: 'center',
+    alignContent: 'center',
+    width: '100%',
+    marginBottom: 30
+  },pictureInfo: {
+    width: '100%',
+    width: 300,
+    height: 300,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    color: 'black',
+    backgroundColor: '#cccccc',
+    fontSize: 18,
+  },cameraPhotoResult: {
+    width: '100%',
+    width: 300,
+    height: 300,
+    borderColor: 'green',
+    borderWidth: 3,
+    marginBottom: 30
+  },deletePhotoButton: {
+    marginTop: 10,
+    backgroundColor: '#8B0000',
+  },
 });
 
 export default CrimeReportScreen;
