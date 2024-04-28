@@ -1,5 +1,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
+        <!-- To request coarse (network-based) location -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+    <!-- To request fine (GPS) location -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+    <!-- (Optional) If targeting Android 10 (API level 29) or higher, you might need this permission as well if your app needs background location access -->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -9,6 +18,9 @@
       android:roundIcon="@mipmap/ic_launcher_round"
       android:allowBackup="false"
       android:theme="@style/AppTheme">
+      <meta-data
+      android:name="com.google.android.geo.API_KEY"
+      android:value="AIzaSyDikd5E_G-F9FSCkwHzn92obFFeU5ii4UE"/>
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"
