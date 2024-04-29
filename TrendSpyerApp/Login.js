@@ -41,10 +41,6 @@ const LoginScreen = ({ navigation }) => {
             <Text style={styles.buttonText}>Register</Text>
           </Pressable>
         </View>
-        <Pressable style={styles.csufButton}>
-          <Text style={styles.buttonText}>Continue with CSUF</Text>
-          <Image source={require('./assets/csuf_logo.png')} style={styles.csufLogo} />
-        </Pressable>
       </View>
     </SafeAreaProvider>
   );
@@ -53,7 +49,7 @@ const LoginScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    backgroundColor: '#A0AABF', 
+    backgroundColor: '#A0AABF', // Muted steel gray background
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -61,21 +57,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
-    width: screenWidth * 0.85,
+    width: screenWidth * 0.85, // Ensure consistent element width
   },
   logo: {
-    width: 180, 
+    width: 180,
     height: 180,
     marginBottom: 20,
     resizeMode: 'contain',
   },
-  csufLogo: {
-    width: 64, 
-    height: 64, 
-    resizeMode: 'contain',
-  },
   title: {
-    color: "#FFF", 
+    color: "#FFF", // White text for contrast
     fontWeight: "600",
     fontSize: 24,
     marginBottom: 20,
@@ -91,7 +82,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 10,
     width: '100%',
-    shadowOpacity: 0.2, 
+    shadowOpacity: 0.2, // subtle shadow for depth
     shadowRadius: 3,
     shadowOffset: { height: 1 },
     elevation: 2,
@@ -103,27 +94,12 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   button: {
-    backgroundColor: "#008080", // Teal Background for buttons
+    backgroundColor: "#008080", // Teal for buttons
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 25,
     width: '48%',
     alignItems: 'center',
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
-    shadowOffset: { height: 2 },
-    elevation: 2,
-  },
-  csufButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: "#008080",
-    paddingVertical: 12,
-    paddingHorizontal: 20,
-    borderRadius: 25,
-    width: '100%',
-    marginBottom: 10,
-    justifyContent: 'center',
     shadowOpacity: 0.2,
     shadowRadius: 3,
     shadowOffset: { height: 2 },
