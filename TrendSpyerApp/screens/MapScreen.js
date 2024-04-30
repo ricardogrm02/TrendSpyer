@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     height: windowHeight * 0.8,
   },
   rectangle: {
-    backgroundColor: '#333333', 
+    backgroundColor: 'gray', 
     height: 40,
     width: '100%',
     flexDirection: 'row',
