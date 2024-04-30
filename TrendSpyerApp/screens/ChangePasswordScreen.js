@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 import axios from 'axios';
-import bcrypt from 'react-native-bcrypt'
+
 
 let passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/
 
@@ -24,8 +24,6 @@ const ChangePasswordScreen = () => {
 
     // Here you would typically call a backend service to update the password
     try{
-      // const secureOldPassword = await bcrypt.hash(prevPassword, 15)
-      // const secureNewPassword = await bcrypt.hash(newPassword, 15)
       const response = await axios.patch('http://10.0.2.2:3000/api/user/update/password', {username: accountUserName, oldPassword: prevPassword, password: newPassword})
       alert (`Your password was update successfuly, ${response.data.personName}`)
     } catch (error) {

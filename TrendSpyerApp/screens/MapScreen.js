@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions, Modal } from 'react-native';
 import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
 import { useIsFocused } from '@react-navigation/native';
+import RNFetchBlob from 'rn-fetch-blob';
 import axios from 'axios';
-
 const windowHeight = Dimensions.get('window').height;
 
 const MapScreen = ({ navigation }) => {
@@ -17,7 +17,7 @@ const MapScreen = ({ navigation }) => {
     if (isFocused) {
       fetchReports();
     }
-  }, [isFocused]);
+  }, [isFocused]);  
 
   const fetchReports = async () => {
     try {
@@ -90,6 +90,7 @@ const getMarkerImage = (category) => {
 
   return (
     <View style={styles.container}>
+
       <MapView
         provider={PROVIDER_GOOGLE}
         style={styles.map}
