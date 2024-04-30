@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, AppContext} from 'react';
+import React, { useState, useEffect, useRef, useContext} from 'react';
 import { ScrollView, StyleSheet, View, Alert, Image} from 'react-native';
 import { Button, Text, Modal, Portal, TextInput, Provider as PaperProvider } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
@@ -8,6 +8,7 @@ import { PermissionsAndroid } from 'react-native';
 import {Camera, useCameraDevice} from 'react-native-vision-camera';
 import RNFetchBlob from 'rn-fetch-blob';
 import ImageResizer from 'react-native-image-resizer'
+import {AppContext} from '../TestDisplay'
 
 async function requestLocationPermission() {
   try {
@@ -46,6 +47,7 @@ const CrimeReportScreen = ({ navigation }) => {
   //Set the camera to be the back camera
   const device = useCameraDevice('back');
   const camera = useRef(null);
+  const context = React.useContext(AppContext)
 
   useEffect(() => {
     const currentDateTime = new Date().toISOString();
@@ -157,6 +159,7 @@ const CrimeReportScreen = ({ navigation }) => {
     .then(img => {
       const asPath = `file://${img.path}`;
       setPhoto(asPath);
+      context.setImagePathList([...context.imagePathList, asPath])
     })
     .catch(e => console.warn(`could not takePhoto: ${e}`));
     console.log(photo)
@@ -265,7 +268,7 @@ const deletePhoto = () => {
         {photo != null && (
         <View>
           <Text style={styles.title}>Image Result</Text>
-          <Text style={styles.title}>{photo}</Text>
+          {/* <Text style={styles.title}>{context.imagePathList}</Text> */}
           <Image style={styles.cameraPhotoResult} source={{uri: photo}} />
         </View>
         )}
@@ -281,7 +284,13 @@ const deletePhoto = () => {
             contentStyle={styles.buttonContent}
           >Delete Photo
           </Button>
-          <Text>{photo}</Text>
+          {/* <Text>{context.imagePathList}</Text>
+          {context.imagePathList.map((imagePath, index) => (
+          <View key={index}>
+          <Text>Image {index}</Text>
+          <Image source={{ uri: imagePath }} style={{ width: 100, height: 100 }} />
+        </View>
+      ))} */}
         </View>
       </ScrollView>
     </PaperProvider>
