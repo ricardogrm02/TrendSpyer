@@ -27,7 +27,7 @@ const App = () => {
   return (
     <PaperProvider theme={theme}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="RegisterScreen">
+        <Stack.Navigator initialRouteName="MapScreen">
 
         <Stack.Screen
             name="RegisterScreen"
