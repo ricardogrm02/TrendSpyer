@@ -1,5 +1,5 @@
 import {AppRegistry} from 'react-native';
-import App from './TestDisplay'
+import {App} from './TestDisplay'
 import RegisterScreen from './Register';
 import {name as appName} from './app.json';
 import MapScreen from './screens/MapScreen';
