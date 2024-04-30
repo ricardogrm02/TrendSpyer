@@ -12,7 +12,11 @@ const crimeReportSchema = new mongoose.Schema({
             type: [Number],  // Array of numbers for longitude and latitude
             required: true
         }
-    }
+    },
+    Image: {
+        data: { type: Buffer, default: null }, // Default value for data field
+        contentType: { type: String, default: null } // Default value for contentType field
+    },
 }, {
     collection: 'crime report'
 });

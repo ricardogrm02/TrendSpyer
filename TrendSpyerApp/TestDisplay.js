@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, createContext} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Provider as PaperProvider, DefaultTheme } from 'react-native-paper';
@@ -12,7 +12,9 @@ import UpdatePersonalInfoScreen from './screens/UpdatePersonalInfoScreen'; // En
 import RegisterScreen from './Register'
 import LoginScreen from './Login'
 
+
 const Stack = createNativeStackNavigator();
+const AppContext = createContext();
 
 const theme = {
   ...DefaultTheme,
@@ -24,8 +26,14 @@ const theme = {
 };
 
 const App = () => {
+  const [imagePathList, setImagePathList] = useState([''])
+  const contextValue =  {
+    imagePathList, setImagePathList
+  }
+
   return (
     <PaperProvider theme={theme}>
+    <AppContext.Provider value = {contextValue}>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="MapScreen">
 
@@ -79,8 +87,9 @@ const App = () => {
           />
         </Stack.Navigator>
       </NavigationContainer>
+      </AppContext.Provider>
     </PaperProvider>
   );
 };
 
-export default App;
+export  {App, AppContext};

@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect , useContext} from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions, Modal } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { useIsFocused } from '@react-navigation/native';
+import RNFetchBlob from 'rn-fetch-blob';
 import axios from 'axios';
-
+import {AppContext, Appcontext} from '../TestDisplay'
 const windowHeight = Dimensions.get('window').height;
 
 const MapScreen = ({ navigation }) => {
@@ -12,11 +13,18 @@ const MapScreen = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedReport, setSelectedReport] = useState(null);
 
+  const context = React.useContext(AppContext)
+        {/* {context.imagePathList.map((image, index) =>
+      <View key = {index}>
+        <Image source={{ uri: image }} style={{ width: 100, height: 100 }} />
+      </View>
+    )} */}
+
   useEffect(() => {
     if (isFocused) {
       fetchReports();
     }
-  }, [isFocused]);
+  }, [isFocused]);  
 
   const fetchReports = async () => {
     try {
