@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, StyleSheet, View, Alert } from 'react-native';
+import { ScrollView, StyleSheet, View, Alert, LogBox } from 'react-native';
 import { Button, Text, Modal, Portal, TextInput, Provider as PaperProvider } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
 import axios from 'axios';
 import Geolocation from 'react-native-geolocation-service';  
 import { PermissionsAndroid } from 'react-native';
+
+LogBox.ignoreLogs(['Using Math.random is not cryptographically secure! Use bcrypt.setRandomFallback to set a PRNG.']); //delete this later
 
 async function requestLocationPermission() {
   try {
