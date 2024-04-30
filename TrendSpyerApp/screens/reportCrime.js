@@ -1,5 +1,6 @@
+import React, { useState, useEffect } from 'react';
 import React, { useState, useEffect, useRef, useContext} from 'react';
-import { ScrollView, StyleSheet, View, Alert, Image} from 'react-native';
+import { ScrollView, StyleSheet, View, Alert, LogBox, Image} from 'react-native';
 import { Button, Text, Modal, Portal, TextInput, Provider as PaperProvider } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
 import axios from 'axios';
@@ -9,6 +10,8 @@ import {Camera, useCameraDevice} from 'react-native-vision-camera';
 import RNFetchBlob from 'rn-fetch-blob';
 import ImageResizer from 'react-native-image-resizer'
 import {AppContext} from '../TestDisplay'
+
+LogBox.ignoreLogs(['Using Math.random is not cryptographically secure! Use bcrypt.setRandomFallback to set a PRNG.']); //delete this later
 
 async function requestLocationPermission() {
   try {
