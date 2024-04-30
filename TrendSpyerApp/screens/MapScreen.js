@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions, Modal } from 'react-native';
-import MapView, { Marker, Callout, PROVIDER_GOOGLE } from 'react-native-maps';
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { useIsFocused } from '@react-navigation/native';
 import axios from 'axios';
 
@@ -10,8 +10,7 @@ const MapScreen = ({ navigation }) => {
   const [reports, setReports] = useState([]);
   const isFocused = useIsFocused();
   const [modalVisible, setModalVisible] = useState(false);
-  const [selectedMarkerImage, setSelectedMarkerImage] = useState(null);
-  const [staticMarker1ModalVisible, setStaticMarker1ModalVisible] = useState(false);
+  const [selectedReport, setSelectedReport] = useState(null);
 
   useEffect(() => {
     if (isFocused) {
@@ -39,7 +38,8 @@ const MapScreen = ({ navigation }) => {
   const goToProfile = () => {
     navigation.navigate('ProfilePageScreen');
   };
-const getMarkerImage = (category) => {
+
+  const getMarkerImage = (category) => {
     switch (category) {
       case 'Sexual Assault':
         return require('../assets/assault.png');
@@ -60,33 +60,10 @@ const getMarkerImage = (category) => {
     }
   };
 
-  const getImage = (category) => {
-    switch(category) {
-     case 'Sexual Assault':
-        return require('../assets/assault.png');
-      case 'Vandalism':
-        return require('../assets/vandalism.png');
-      case 'Reckless Driving':
-        return require('../assets/car-crash.png');
-      case 'Theft':
-        return require('../assets/theft.png');
-      case 'Vehicle':
-        return require('../assets/car.png');
-      case 'Drug Possession':
-        return require('../assets/drugs.png');
-      case 'Property Damage':
-        return require('../assets/prop-damage.png');
-      default:
-        return require('../assets/refresh_icon.png');
-    }
-  }
-
-  const handleMarkerPress = (imageFilename) => {
-  if (imageFilename) {
-      setSelectedMarkerImage(imageFilename);
-      setModalVisible(true);
-  }
-};
+  const handleMarkerPress = (report) => {
+    setSelectedReport(report);
+    setModalVisible(true);
+  };
 
   return (
     <View style={styles.container}>
@@ -100,96 +77,47 @@ const getMarkerImage = (category) => {
           longitudeDelta: 0.0421,
         }}
       >
-        {reports.map((reports, index) => (
+        {reports.map((report, index) => (
           <Marker
             key={index}
             coordinate={{
-              latitude: reports.location.coordinates[1],
-              longitude: reports.location.coordinates[0],
+              latitude: report.location.coordinates[1],
+              longitude: report.location.coordinates[0],
             }}
-            onPress={() => handleMarkerPress(getMarkerImage(reports.image))}
-            image={getMarkerImage(reports.category)} // Use the image based on the category
-            imageStyle={styles.markerImage}
-          >
-            {/*<Image source={getMarkerImage(report.category)} style={styles.markerImage} />*/}
-            <Callout>
-              <View>
-                <Text>{reports.crime}</Text>
-                <Text>{reports.category}</Text>
-              </View>
-            </Callout>
-          </Marker>
-
+            onPress={() => handleMarkerPress(report)}
+            image={getMarkerImage(report.category)}
+          />
         ))}
+      </MapView>
 
-        {/*static marker starts here
-        {reports.length > 0 && (
-        <Marker
-          coordinate={{
-          latitude: 33.8823,
-          longitude: -117.8851,
-        }}
-        onPress={() => handleMarkerPress(reports[0].Image.data.data)}
-        image={getMarkerImage(reports[0].category)} 
-        imageStyle={styles.markerImage}
-       />
-        )}
-        static marker end's here*/}      
-
-
-        {/*static #1*/}
-        {reports.length > 0 && (
-        <Marker
-          coordinate={{
-         latitude: reports[0].location.coordinates[0],
-         longitude: reports[0].location.coordinates[1]
-        }}
-        onPress={() => setStaticMarker1ModalVisible(true)} // Set modal visibility to true
-        image={getMarkerImage(reports.category)} // Use the specific image for static marker #1
-        imageStyle={styles.markerImage}
-        />
-        )}
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={staticMarker1ModalVisible} // Use state variable to control visibility
-          onRequestClose={() => setStaticMarker1ModalVisible(false)}
-          >
-          <View style={styles.modalContainer}>
-            <TouchableOpacity onPress={() => setStaticMarker1ModalVisible(false)} style={styles.closeButton}>
-          <Text style={styles.closeButtonText}>Close</Text>
-          </TouchableOpacity>
-          {/* Display the specific image for static marker #1 */}
-          <Image source={require('../assets/crime1.png')} style={styles.modalImage} />
-          </View>
-         </Modal>
-        {/*static #1*/}      
-
-
-     </MapView>
-
-      {/* Modal */}
       <Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => setModalVisible(false)}
       >
-        <View style={styles.modalContainer}>
-          <TouchableOpacity onPress={() => setModalVisible(false)} style={styles.closeButton}>
-            <Text style={styles.closeButtonText}>Close</Text>
-            {selectedMarkerImage && (
-      <Image
-        source={require('../assets/crime1.png')} // Load the image dynamically
-        style={styles.modalImage}
-      />
-    )} 
-          </TouchableOpacity>
-                  </View>
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <TouchableOpacity onPress={() => setModalVisible(false)} style={styles.closeButton}>
+              <Text style={styles.closeButtonText}>✕</Text>
+            </TouchableOpacity>
+            {selectedReport && (
+              <View style={styles.modalDetails}>
+                <Text style={styles.modalTitle}>{selectedReport.crime}</Text>
+                <Text style={styles.modalText}>Trend: {selectedReport.tag}</Text>
+                <Text style={styles.modalText}>Date: {new Date(selectedReport.reportDate).toLocaleDateString()}</Text>
+                <Text style={styles.modalText}>Category: {selectedReport.category}</Text>
+                <Image
+                  source={getMarkerImage(selectedReport.category)}
+                  style={styles.modalImage}
+                />
+              </View>
+            )}
+          </View>
+        </View>
       </Modal>
-      {/* End of Modal */}
 
-           <View style={styles.rectangle}>
+      <View style={styles.rectangle}>
         <Text style={styles.title}>TrendSpyer</Text>
         <View style={styles.buttonsContainer}>
           <TouchableOpacity onPress={goToProfile} style={styles.profileButton}>
@@ -201,11 +129,7 @@ const getMarkerImage = (category) => {
           <TouchableOpacity onPress={goToSettings} style={styles.gearButton}>
             <Image source={require('../assets/gear.png')} style={styles.image_gear} />
           </TouchableOpacity>
-          {/* Refresh Button */}
-          <TouchableOpacity onPress={fetchReports} style={styles.refreshButton}>
-            <Image source={require('../assets/refresh_icon.png')} style={styles.image_refresh} />
-          </TouchableOpacity>
-        </View>
+          </View>
       </View>
     </View>
   );
@@ -214,11 +138,11 @@ const getMarkerImage = (category) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'gray',
+    backgroundColor: '#121212',
     height: windowHeight * 0.8,
   },
   rectangle: {
-    backgroundColor: 'grey',
+    backgroundColor: '#333333', 
     height: 40,
     width: '100%',
     flexDirection: 'row',
@@ -250,83 +174,64 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
   },
-  refreshButton: {
-    position: 'absolute',
-    left: -250,  
-    bottom: -700,  
-    width: 50,  
-    height: 50,  
-    borderRadius: 25,  
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white',  
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-  },
-  image_refresh: {
-    width: 20,
-    height: 20,
-  },
   image_profile: {
-    width: 30,
-    height: 30,
+    width: '100%',
+    height: '100%',
+    borderRadius: 5,
+  },
+  image_crime: {
+    width: '100%',
+    height: '100%',
     borderRadius: 5,
   },
   image_gear: {
-    width: 30,
-    height: 30,
-  },
-  image_crime: {
-    width: 30,
-    height: 30,
-  },
-  googleContainer: {
-    ...StyleSheet.absoluteFillObject,
-    height: 900,
-    width: 500,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
+    width: '100%',
+    height: '100%',
   },
   map: {
     ...StyleSheet.absoluteFillObject,
   },
-  markerImage: {
-    width: 0.5, 
-    height: 0.5, 
-  },
-  // Modal Styles
-  modalContainer: {
+  modalOverlay: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'rgba(0, 0, 0, 0.7)', 
   },
-  closeButton: {
-    position: 'absolute',
-    top: 20,
-    right: 20,
-    zIndex: 999,
+  modalContent: {
+    backgroundColor: '#282828', 
+    borderRadius: 15,
+    padding: 25,
+    width: '90%',
+    maxWidth: 400,
   },
-  closeButtonText: {
-    color: 'white',
-    fontSize: 16,
+  modalDetails: {
+    alignItems: 'center',
+  },
+  modalTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 15,
+    color: '#E0E0E0', 
+  },
+  modalText: {
+    fontSize: 18,
+    marginBottom: 10,
+    color: '#BDBDBD', 
   },
   modalImage: {
-    width: 300,
-    height: 300,
+    width: 200,
+    height: 200,
     resizeMode: 'contain',
+    marginBottom: 20,
   },
-  reportImage: {
-  width: 20,
-  height: 20,
+  closeButton: {
+    alignSelf: 'flex-end',
+    padding: 8,
+  },
+  closeButtonText: {
+    fontSize: 24,
+    color: '#E0E0E0',
   },
 });
 
 export default MapScreen;
-
