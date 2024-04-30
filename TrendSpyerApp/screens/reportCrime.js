@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from 'react';
 import React, { useState, useEffect, useRef, useContext} from 'react';
 import { ScrollView, StyleSheet, View, Alert, LogBox, Image} from 'react-native';
 import { Button, Text, Modal, Portal, TextInput, Provider as PaperProvider } from 'react-native-paper';
