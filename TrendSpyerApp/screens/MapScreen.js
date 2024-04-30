@@ -171,8 +171,8 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   gearButton: {
-    width: 30,
-    height: 30,
+    width: 35,
+    height: 35,
   },
   image_profile: {
     width: '100%',
