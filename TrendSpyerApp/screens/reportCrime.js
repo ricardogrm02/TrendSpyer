@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useRef, AppContext} from 'react';
 import { ScrollView, StyleSheet, View, Alert, Image} from 'react-native';
 import { Button, Text, Modal, Portal, TextInput, Provider as PaperProvider } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
@@ -6,6 +6,8 @@ import axios from 'axios';
 import Geolocation from 'react-native-geolocation-service';  
 import { PermissionsAndroid } from 'react-native';
 import {Camera, useCameraDevice} from 'react-native-vision-camera';
+import RNFetchBlob from 'rn-fetch-blob';
+import ImageResizer from 'react-native-image-resizer'
 
 async function requestLocationPermission() {
   try {
@@ -81,6 +83,23 @@ const CrimeReportScreen = ({ navigation }) => {
       { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
     );
   };
+  const resizeAndCompressImage = async (imageUri, maxWidth, maxHeight, quality) => {
+    try {
+      const resizedImage = await ImageResizer.createResizedImage(
+        imageUri,
+        maxWidth,
+        maxHeight,
+        'JPEG',
+        quality
+      );
+      // Read the resized image data
+      const imageData = await RNFetchBlob.fs.readFile(resizedImage.uri, 'base64');
+      return imageData;
+    } catch (error) {
+      console.error('Error resizing and compressing image:', error);
+      throw error;
+    }
+  };
 
   const handleSubmit = async () => {
     if (!location) {
@@ -92,17 +111,25 @@ const CrimeReportScreen = ({ navigation }) => {
         type: "Point",
         coordinates: [location.longitude, location.latitude]
       };
-  
+      let imageData = null;
+      if (photo) {
+        imageData = await resizeAndCompressImage(photo, 100, 100, 80);
+      }
       const reportData = {
         crime,
         tag: trend,
         reportDate: reportDateTime,
         category,
         reportID: Math.floor(Math.random() * 10000),
-        location: locationData
+        location: locationData,
+        Image: {data: imageData, contentType: 'image/jpeg'}
       };
+
   
       console.log("Sending data:", reportData); // Log the data being sent
+      if (imageData) {
+        console.log(`Image Size: ${imageData.length}`)
+      }
   
       const response = await axios.post('http://10.0.2.2:3000/api/user/upload/report', reportData);
       console.log(response.data);
@@ -130,9 +157,9 @@ const CrimeReportScreen = ({ navigation }) => {
     .then(img => {
       const asPath = `file://${img.path}`;
       setPhoto(asPath);
-      console.log(photo)
     })
     .catch(e => console.warn(`could not takePhoto: ${e}`));
+    console.log(photo)
 };
 
 const deletePhoto = () => {
@@ -254,6 +281,7 @@ const deletePhoto = () => {
             contentStyle={styles.buttonContent}
           >Delete Photo
           </Button>
+          <Text>{photo}</Text>
         </View>
       </ScrollView>
     </PaperProvider>
