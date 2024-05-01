@@ -26,7 +26,7 @@ const theme = {
 };
 
 const App = () => {
-  const [imagePathList, setImagePathList] = useState([''])
+  const [imagePathList, setImagePathList] = useState([])
   const contextValue =  {
     imagePathList, setImagePathList
   }

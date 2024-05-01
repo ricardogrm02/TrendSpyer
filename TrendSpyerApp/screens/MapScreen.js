@@ -25,7 +25,7 @@ const MapScreen = ({ navigation }) => {
     try {
       const response = await axios.get('http://10.0.2.2:3000/api/report/info');
       setReports(response.data);
-      console.log(reports)
+      console.log(context)
     } catch (error) {
       console.error('Failed to fetch reports', error);
     }
@@ -111,10 +111,16 @@ const MapScreen = ({ navigation }) => {
                 <Text style={styles.modalText}>Trend: {selectedReport.tag}</Text>
                 <Text style={styles.modalText}>Date: {new Date(selectedReport.reportDate).toLocaleDateString()}</Text>
                 <Text style={styles.modalText}>Category: {selectedReport.category}</Text>
-                <Image
+                {console.log(context)}
+                {context.imagePathList && context.imagePathList.length > 0  && context.imagePathList[0].length > 0? (
+                   <Image
+                   source={{uri: context.imagePathList[0]}}
+                   style={styles.modalImage}
+                 />): (
+                  <Image
                   source={getMarkerImage(selectedReport.category)}
                   style={styles.modalImage}
-                />
+                />)}
               </View>
             )}
           </View>

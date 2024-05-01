@@ -130,9 +130,9 @@ const CrimeReportScreen = ({ navigation }) => {
       };
 
   
-      console.log("Sending data:", reportData); // Log the data being sent
+      //console.log("Sending data:", reportData); // Log the data being sent
       if (imageData) {
-        console.log(`Image Size: ${imageData.length}`)
+        //console.log(`Image Size: ${imageData.length}`)
       }
   
       const response = await axios.post('http://10.0.2.2:3000/api/user/upload/report', reportData);
@@ -168,7 +168,7 @@ const CrimeReportScreen = ({ navigation }) => {
       context.setImagePathList([...context.imagePathList, asPath])
     })
     .catch(e => console.warn(`could not takePhoto: ${e}`));
-    console.log(photo)
+    //console.log(photo)
 };
 
 const deletePhoto = () => {
@@ -290,13 +290,6 @@ const deletePhoto = () => {
             contentStyle={styles.buttonContent}
           >Delete Photo
           </Button>
-          {/* <Text>{context.imagePathList}</Text>
-          {context.imagePathList.map((imagePath, index) => (
-          <View key={index}>
-          <Text>Image {index}</Text>
-          <Image source={{ uri: imagePath }} style={{ width: 100, height: 100 }} />
-        </View>
-      ))} */}
         </View>
       </ScrollView>
     </PaperProvider>
