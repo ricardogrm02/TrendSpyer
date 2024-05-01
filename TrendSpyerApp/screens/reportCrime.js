@@ -64,7 +64,6 @@ const CrimeReportScreen = ({ navigation }) => {
           "Please enable location permissions in settings to use this feature.",
           [
             { text: "Cancel", style: "cancel" },
-            { text: "Open Settings", onPress: () => OpenSettings.openSettings() } // Requires 'react-native-open-settings' or similar library
           ]
         );
       }

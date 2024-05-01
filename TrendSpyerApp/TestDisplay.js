@@ -35,7 +35,7 @@ const App = () => {
     <PaperProvider theme={theme}>
     <AppContext.Provider value = {contextValue}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="MapScreen">
+        <Stack.Navigator initialRouteName="RegisterScreen">
 
         <Stack.Screen
             name="RegisterScreen"

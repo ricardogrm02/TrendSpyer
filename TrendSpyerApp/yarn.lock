@@ -6776,11 +6776,6 @@ react-native-maps@^1.14.0:
   dependencies:
     "@types/geojson" "^7946.0.13"
 
-react-native-open-settings@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.npmjs.org/react-native-open-settings/-/react-native-open-settings-1.0.1.tgz"
-  integrity sha512-b/ER2bTdKpNwx3OjlS5qMnjkcnk1RYuHc843Tn1d5UCC+v4FYOm0aGpS/qWR5Oor9/UcWynI5JatVazlHSkZwQ==
-
 react-native-paper@^5.12.3:
   version "5.12.3"
   resolved "https://registry.npmjs.org/react-native-paper/-/react-native-paper-5.12.3.tgz"
@@ -6813,11 +6808,6 @@ react-native-screens@^3.30.1, "react-native-screens@>= 3.0.0":
     react-freeze "^1.0.0"
     warn-once "^0.1.0"
 
-react-native-settings@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/react-native-settings/-/react-native-settings-1.0.0.tgz"
-  integrity sha512-He8MHBMAkhpHhmbJo2qIut3CU01lto6SbjvU5XYcdXhqEYlsOswLbm+Yi2aoelyKAvCmT9LhMBm7mRbPYaQB6Q==
-
 react-native-vector-icons@*, react-native-vector-icons@^10.0.3:
   version "10.0.3"
   resolved "https://registry.npmjs.org/react-native-vector-icons/-/react-native-vector-icons-10.0.3.tgz"
@@ -6831,7 +6821,7 @@ react-native-vision-camera@^4.0.1:
   resolved "https://registry.npmjs.org/react-native-vision-camera/-/react-native-vision-camera-4.0.1.tgz"
   integrity sha512-TuXLw/ak+LPaJOCuUaYG1g2EmTAEEeIVAhSbCsqEHlklMjkO0oRBGcPC6HpKw3++jkcKRBVVyY48HbB002UZfg==
 
-react-native@*, "react-native@>= 0.64.3", react-native@>=0.40, react-native@>=0.57, react-native@>=0.60.0, react-native@>=v0.40.0, react-native@0.72.7:
+react-native@*, "react-native@>= 0.64.3", react-native@>=0.57, react-native@>=0.60.0, react-native@>=v0.40.0, react-native@0.72.7:
   version "0.72.7"
   resolved "https://registry.npmjs.org/react-native/-/react-native-0.72.7.tgz"
   integrity sha512-dqVFojOO9rOvyFbbM3/v9/GJR355OSuBhEY4NQlMIRc2w0Xch5MT/2uPoq3+OvJ+5h7a8LFAco3fucSffG0FbA==
