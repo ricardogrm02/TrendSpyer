@@ -3,15 +3,18 @@ import { View, Text, Image, StyleSheet, ScrollView, Switch } from 'react-native'
 import { List, Avatar } from 'react-native-paper';
 
 const ProfilePageScreen = ({ navigation }) => {
-    const [userName, setUserName] = useState("John Doe");
+    const [userName, setUserName] = useState("Cassandra Lopez");
     const [userReports, setUserReports] = useState([]);
     const [showReports, setShowReports] = useState(false);
 
     useEffect(() => {
         // Simulate fetching user data and reports
         setUserReports([
-            { id: 1, title: 'Vandalism', date: '2024-04-14' },
-            { id: 2, title: 'Theft', date: '2024-04-13' }
+            { id: 1, title: 'Property Damage', date: '2024-04-30' },
+            { id: 2, title: 'Vehicle', date: '2024-04-30' },
+            { id: 3, title: 'Vandalism', date: '2024-04-30' },
+            { id: 4, title: 'Sexual Assault', date: '2024-04-30' },
+            { id: 5, title: 'Drug Possession', date: '2024-04-30' },
         ]);
     }, []);
 
