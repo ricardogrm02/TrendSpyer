@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { ScrollView, StyleSheet, View, Alert, LogBox } from 'react-native';
+import React, { useState, useEffect, useRef, useContext} from 'react';
+import { ScrollView, StyleSheet, View, Alert, LogBox, Image} from 'react-native';
 import { Button, Text, Modal, Portal, TextInput, Provider as PaperProvider } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
 import axios from 'axios';
 import Geolocation from 'react-native-geolocation-service';  
 import { PermissionsAndroid } from 'react-native';
+import {Camera, useCameraDevice} from 'react-native-vision-camera';
+import RNFetchBlob from 'rn-fetch-blob';
+import ImageResizer from 'react-native-image-resizer'
+import {AppContext} from '../TestDisplay'
 
 LogBox.ignoreLogs(['Using Math.random is not cryptographically secure! Use bcrypt.setRandomFallback to set a PRNG.']); //delete this later
 
@@ -36,6 +40,16 @@ const CrimeReportScreen = ({ navigation }) => {
   const [location, setLocation] = useState(null);
   const [categoryModalVisible, setCategoryModalVisible] = useState(false);
   const [trendModalVisible, setTrendModalVisible] = useState(false);
+  //Use State to keep track of the camera permissions
+  const [cameraPermission, setCameraPermission] = useState(true);
+  //Use State to keep track if the camera permission has been set
+  const[isCameraPermissionSet, setIsCameraPermissionSet] = useState(false);
+  //Use State to keep track of the photo saved by the camera
+  const [photo, setPhoto] = useState(null)
+  //Set the camera to be the back camera
+  const device = useCameraDevice('back');
+  const camera = useRef(null);
+  const context = React.useContext(AppContext)
 
   useEffect(() => {
     const currentDateTime = new Date().toISOString();
@@ -73,6 +87,23 @@ const CrimeReportScreen = ({ navigation }) => {
       { enableHighAccuracy: true, timeout: 15000, maximumAge: 10000 }
     );
   };
+  const resizeAndCompressImage = async (imageUri, maxWidth, maxHeight, quality) => {
+    try {
+      const resizedImage = await ImageResizer.createResizedImage(
+        imageUri,
+        maxWidth,
+        maxHeight,
+        'JPEG',
+        quality
+      );
+      // Read the resized image data
+      const imageData = await RNFetchBlob.fs.readFile(resizedImage.uri, 'base64');
+      return imageData;
+    } catch (error) {
+      console.error('Error resizing and compressing image:', error);
+      throw error;
+    }
+  };
 
   const handleSubmit = async () => {
     if (!location) {
@@ -84,17 +115,25 @@ const CrimeReportScreen = ({ navigation }) => {
         type: "Point",
         coordinates: [location.longitude, location.latitude]
       };
-  
+      let imageData = null;
+      if (photo) {
+        imageData = await resizeAndCompressImage(photo, 100, 100, 80);
+      }
       const reportData = {
         crime,
         tag: trend,
         reportDate: reportDateTime,
         category,
         reportID: Math.floor(Math.random() * 10000),
-        location: locationData
+        location: locationData,
+        Image: {data: imageData, contentType: 'image/jpeg'}
       };
+
   
-      console.log("Sending data:", reportData); // Log the data being sent
+      //console.log("Sending data:", reportData); // Log the data being sent
+      if (imageData) {
+        //console.log(`Image Size: ${imageData.length}`)
+      }
   
       const response = await axios.post('http://10.0.2.2:3000/api/user/upload/report', reportData);
       console.log(response.data);
@@ -104,8 +143,37 @@ const CrimeReportScreen = ({ navigation }) => {
       Alert.alert('Error', `Failed to upload report: ${error.message}`);
     }
   };
-  
-  
+  //Handle Camera Permissions Upon Entering the Crime Report Screen
+  if (!isCameraPermissionSet) {
+    Camera.requestCameraPermission()
+      .then(granted =>setCameraPermission(granted))
+      .catch (error => console.warn(`Permission Refused: ${error}`));
+  }
+
+  const takePhoto = () => {
+    if (!isCameraPermissionSet) {
+      Camera.requestCameraPermission()
+      .then(granted =>setCameraPermission(granted))
+      .catch (error => console.warn(`Permission Refused: ${error}`));
+      console.log("Can't Click yet")
+
+      return;
+    }
+    console.log("Camera permissions are enabled")
+    camera.current
+    .takePhoto()
+    .then(img => {
+      const asPath = `file://${img.path}`;
+      setPhoto(asPath);
+      context.setImagePathList([...context.imagePathList, asPath])
+    })
+    .catch(e => console.warn(`could not takePhoto: ${e}`));
+    //console.log(photo)
+};
+
+const deletePhoto = () => {
+  setPhoto(null)
+}
 
   return (
     <PaperProvider>
@@ -193,6 +261,36 @@ const CrimeReportScreen = ({ navigation }) => {
             View Reports
           </Button>
         </View>
+        <View style= {styles.form}>
+        <Text style={styles.title}>Take Photo</Text>
+        <Camera
+          ref={camera}
+          style={styles.cameraViewfinder}
+          device={device}
+          isActive={true}
+          photo={true}
+          onInitialized={() => setIsCameraPermissionSet(true)}
+        />
+        {photo != null && (
+        <View>
+          <Text style={styles.title}>Image Result</Text>
+          {/* <Text style={styles.title}>{context.imagePathList}</Text> */}
+          <Image style={styles.cameraPhotoResult} source={{uri: photo}} />
+        </View>
+        )}
+         <Button 
+            onPress={takePhoto} 
+            style={styles.button}
+            contentStyle={styles.buttonContent}
+          >Take Photo
+          </Button>
+          <Button 
+            onPress={deletePhoto}
+            style={styles.deletePhotoButton}
+            contentStyle={styles.buttonContent}
+          >Delete Photo
+          </Button>
+        </View>
       </ScrollView>
     </PaperProvider>
   );
@@ -212,6 +310,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 1,
     borderColor: '#555',
+    marginBottom: 30
   },
   title: {
     fontSize: 24,
@@ -248,7 +347,34 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 20,
     margin: 20,
-  }
+  },
+  cameraViewfinder: {
+    width: 300,
+    height: 300,
+    justifyContent: 'center',
+    alignContent: 'center',
+    width: '100%',
+    marginBottom: 30
+  },pictureInfo: {
+    width: '100%',
+    width: 300,
+    height: 300,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    color: 'black',
+    backgroundColor: '#cccccc',
+    fontSize: 18,
+  },cameraPhotoResult: {
+    width: '100%',
+    width: 300,
+    height: 300,
+    borderColor: 'green',
+    borderWidth: 3,
+    marginBottom: 30
+  },deletePhotoButton: {
+    marginTop: 10,
+    backgroundColor: '#8B0000',
+  },
 });
 
 export default CrimeReportScreen;

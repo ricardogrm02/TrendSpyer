@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext} from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions, Modal } from 'react-native';
 import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import { useIsFocused } from '@react-navigation/native';
 import axios from 'axios';
+import {AppContext} from '../TestDisplay'
 
 const windowHeight = Dimensions.get('window').height;
 
@@ -11,6 +12,8 @@ const MapScreen = ({ navigation }) => {
   const isFocused = useIsFocused();
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedReport, setSelectedReport] = useState(null);
+  const context = React.useContext(AppContext)
+
 
   useEffect(() => {
     if (isFocused) {
@@ -22,6 +25,7 @@ const MapScreen = ({ navigation }) => {
     try {
       const response = await axios.get('http://10.0.2.2:3000/api/report/info');
       setReports(response.data);
+      console.log(context)
     } catch (error) {
       console.error('Failed to fetch reports', error);
     }
@@ -107,10 +111,16 @@ const MapScreen = ({ navigation }) => {
                 <Text style={styles.modalText}>Trend: {selectedReport.tag}</Text>
                 <Text style={styles.modalText}>Date: {new Date(selectedReport.reportDate).toLocaleDateString()}</Text>
                 <Text style={styles.modalText}>Category: {selectedReport.category}</Text>
-                <Image
+                {console.log(context)}
+                {context.imagePathList && context.imagePathList.length > 0  && context.imagePathList[0].length > 0? (
+                   <Image
+                   source={{uri: context.imagePathList[0]}}
+                   style={styles.modalImage}
+                 />): (
+                  <Image
                   source={getMarkerImage(selectedReport.category)}
                   style={styles.modalImage}
-                />
+                />)}
               </View>
             )}
           </View>
@@ -128,6 +138,9 @@ const MapScreen = ({ navigation }) => {
           </TouchableOpacity>
           <TouchableOpacity onPress={goToSettings} style={styles.gearButton}>
             <Image source={require('../assets/gear.png')} style={styles.image_gear} />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={fetchReports} style={styles.refreshButton}>
+            <Image source={require('../assets/refresh_icon.png')} style={styles.image_refresh} />
           </TouchableOpacity>
           </View>
       </View>
@@ -169,6 +182,28 @@ const styles = StyleSheet.create({
     height: 30,
     borderRadius: 5,
     marginRight: 10,
+  },refreshButton: {
+    position: 'absolute',
+    left: -250,  
+    bottom: -700,  
+    width: 50,  
+    height: 50,  
+    borderRadius: 25,  
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',  
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  image_refresh: {
+    width: 20,
+    height: 20,
   },
   gearButton: {
     width: 35,
